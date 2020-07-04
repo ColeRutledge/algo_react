@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+import DataContext from './contexts/DataContext'
+import Routes from './components/Routes'
+
+const App = () => {
+  const [ data, setData ] = useState([])
+
+  const createData = () => {
+    const data = []
+    for (let i = 0; i < 50; i++) {
+      let randNum = getRandomArbitrary(10, 600)
+      data.push(randNum)
+    }
+    setData(data)
+  }
+
+  const getRandomArbitrary = (min, max) => {
+    return Math.floor(Math.random() * (max - min) + min)
+  }
+
+  const context = {
+    data,
+    setData,
+    createData,
+    getRandomArbitrary,
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <DataContext.Provider value={context}>
+      <Routes />
+    </DataContext.Provider>
+  )
 }
 
 export default App;
