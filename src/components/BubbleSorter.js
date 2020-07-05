@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 
 import DataContext from '../contexts/DataContext'
 import SortNode from './SortNode'
@@ -7,20 +7,30 @@ import { BubbleContainer } from '../styles'
 
 const BubbleSorter = () => {
   const { data } = useContext(DataContext)
-  const [ sortData, setSortData ] = useState([])
+  const [ sortedData, setSortedData ] = useState([])
 
+  useEffect(() => setSortedData(data), [data])
 
   const bubbleSort = () => {
-    setSortData(data)
+    const copy = data.slice()
 
-    for (let i = 0; i < data.length - 1; i++) {
-      for (let j = i + 1; j < data.length; j++) {
-        if (data[i] > data[j]) {
-          swap(i, j, data)
+    for (let i = 0; i < copy.length; i++) {
+      for (let j = 0; j < copy.length; j++) {
+        if (copy[j] > copy[j + 1]) {
+          swap(j, j + 1, copy)
         }
       }
     }
-    setSortData(data)
+
+    setSortedData(copy)
+    bubbleAnimation(data, sortedData)
+
+  }
+
+  const bubbleAnimation = (data, sortedData) => {
+    // console.log(data)
+    // console.log(sortedData)
+    return
   }
 
   const swap = (firstIndx, secondIndx, array) => {
@@ -29,13 +39,13 @@ const BubbleSorter = () => {
     array[secondIndx] = temp
   }
 
-  // if (sortData.length === 0) return null
+  if (!sortedData.length) return null
 
   return (
     <>
       <button onClick={bubbleSort}>Sort!</button>
       <BubbleContainer>
-        {data.map((value, index) => <SortNode key={index} value={value} />)}
+        {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </BubbleContainer>
     </>
   )
