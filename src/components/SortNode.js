@@ -11,9 +11,10 @@ const SortNode = ({ value }) => {
 
   return (
     <>
-      <div style={divStyles}></div>
+      <div className='bar' style={divStyles}></div>
     </>
   )
 }
 
 export default SortNode
+
