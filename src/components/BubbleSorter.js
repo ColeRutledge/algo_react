@@ -9,13 +9,9 @@ const BubbleSorter = () => {
   const { data } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
 
-
   useEffect(() => setSortedData(data), [data])
 
-  const sleep = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   const bubbleSort = async () => {
     const copy = data.slice()
@@ -23,33 +19,24 @@ const BubbleSorter = () => {
     for (let i = 0; i < copy.length; i++) {
       for (let j = 0; j < copy.length - i; j++) {
         if (copy[j] > copy[j + 1]) {
-          // setSortedData(swap(j, j + 1, copy))
-          const copyArray = await swap(j, j + 1, copy)
-          setSortedData([...copyArray])
-          console.log(sortedData)
-          // await swap(j, j + 1, copy)
-          // await swap(j, j + 1, copy)
+          const swapped = await swap(j, j + 1, copy)
+          setSortedData([...swapped])
         }
       }
     }
-
-
-    bubbleAnimation(data, sortedData)
-
   }
 
   const swap = async (firstIndx, secondIndx, array) => {
-    await sleep(25)
+    const bars = document.getElementsByClassName('bar')
+    bars[firstIndx].style.backgroundColor = '#DC3545'
+    bars[secondIndx].style.backgroundColor = '#DC3545'
     let temp = array[firstIndx]
     array[firstIndx] = array[secondIndx]
     array[secondIndx] = temp
+    await sleep(5)
+    bars[firstIndx].style.backgroundColor = '#02203c'
+    bars[secondIndx].style.backgroundColor = '#02203c'
     return array
-  }
-
-  const bubbleAnimation = (data, sortedData) => {
-    // console.log(data)
-    // console.log(sortedData)
-    return
   }
 
 
@@ -57,7 +44,7 @@ const BubbleSorter = () => {
 
   return (
     <>
-      <button onClick={bubbleSort}>Sort!</button>
+      <button className='btn btn-danger' onClick={bubbleSort}>Sort!</button>
       <BubbleContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </BubbleContainer>
@@ -65,9 +52,9 @@ const BubbleSorter = () => {
   )
 }
 
-
-
 export default BubbleSorter
+
+// {sortedData.map((value, index) => <motion.div key={index} value={value} positionTransition className='bar' style={{borderRadius: '5px', margin: '2px', width: '100%', height: `${value}px`, backgroundColor: '#02203c'}} ></motion.div>)}
 
   // useEffect(() => {
   //   const timer = setTimeout(printTimer, 500)
