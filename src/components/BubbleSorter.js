@@ -21,6 +21,7 @@ const BubbleSorter = () => {
         if (copy[j] > copy[j + 1]) {
           const swapped = await swap(j, j + 1, copy)
           setSortedData([...swapped])
+          // await sleep(20)
         }
       }
     }

@@ -50,3 +50,37 @@ export const SelectionContainer = styled(motion.div)`
   border-radius: 4px;
   overflow: hidden;
 `
+
+// Insertion Sort Styles
+
+export const InsertionContainer = styled(motion.div)`
+  margin: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 600px;
+  border-radius: 4px;
+  overflow: hidden;
+`
+// Quick Sort Styles
+
+export const QuickContainer = styled(motion.div)`
+  margin: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 600px;
+  border-radius: 4px;
+  overflow: hidden;
+`
+// Merge Sort Styles
+
+export const MergeContainer = styled(motion.div)`
+  margin: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 600px;
+  border-radius: 4px;
+  overflow: hidden;
+`

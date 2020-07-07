@@ -20,6 +20,15 @@ const Nav = () => {
         <Link to='/selection'>
           <button className='btn btn-danger' type='button'>Selection Sort</button>
         </Link>
+        <Link to='/insertion'>
+          <button className='btn btn-danger' type='button'>Insertion Sort</button>
+        </Link>
+        <Link to='/quick'>
+          <button className='btn btn-danger' type='button'>Quick Sort</button>
+        </Link>
+        <Link to='/merge'>
+          <button className='btn btn-danger' type='button'>Merge Sort</button>
+        </Link>
         <button className='btn btn-danger' onClick={createData}>New Array</button>
       </NavButtonCont>
     </NavContainer>

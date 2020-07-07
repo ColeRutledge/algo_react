@@ -8,7 +8,7 @@ const App = () => {
 
   const createData = () => {
     const data = []
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 75; i++) {
       let randNum = getRandomNum(10, 600)
       data.push(randNum)
     }
