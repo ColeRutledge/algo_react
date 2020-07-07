@@ -12,12 +12,15 @@ const Nav = () => {
       <NavTitle>Algo-React</NavTitle>
       <NavButtonCont>
         <Link to='/'>
-          <button type='button'>Home</button>
+          <button className='btn btn-danger' type='button'>Home</button>
         </Link>
         <Link to='/bubble'>
-          <button type='button'>Bubble Sort</button>
+          <button className='btn btn-danger' type='button'>Bubble Sort</button>
         </Link>
-        <button onClick={createData}>New Array</button>
+        <Link to='/selection'>
+          <button className='btn btn-danger' type='button'>Selection Sort</button>
+        </Link>
+        <button className='btn btn-danger' onClick={createData}>New Array</button>
       </NavButtonCont>
     </NavContainer>
   )

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 import DataContext from './contexts/DataContext'
 import Routes from './components/Routes'
 
@@ -9,7 +8,7 @@ const App = () => {
 
   const createData = () => {
     const data = []
-    for (let i = 0; i < 75; i++) {
+    for (let i = 0; i < 100; i++) {
       let randNum = getRandomNum(10, 600)
       data.push(randNum)
     }
