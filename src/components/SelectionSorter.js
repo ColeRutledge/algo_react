@@ -10,7 +10,7 @@ const SelectionSorter = () => {
 
   useEffect(() => setSortedData(data), [data])
 
-  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
   const selectionSort = async () => {
     const copy = data.slice()
@@ -18,6 +18,7 @@ const SelectionSorter = () => {
     for (let i = 0; i < copy.length; i++) {
       let smallest = i
       for (let j = i + 1; j < copy.length; j++) {
+        // await sleep(5)
         if (copy[smallest] > copy[j]) {
           smallest = j
         }
@@ -36,11 +37,13 @@ const SelectionSorter = () => {
     let temp = array[firstIndx]
     array[firstIndx] = array[secondIndx]
     array[secondIndx] = temp
-    await sleep(5)
+    await sleep(20)
     bars[firstIndx].style.backgroundColor = '#02203c'
     bars[secondIndx].style.backgroundColor = '#02203c'
     return array
   }
+
+  if (!sortedData.length) return null
 
   return (
     <>
