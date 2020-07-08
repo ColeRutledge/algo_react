@@ -23,7 +23,7 @@ const InsertionSorter = () => {
         bars[j + 1].style.backgroundColor = '#DC3545'
         bars[j].style.backgroundColor = '#DC3545'
         copy[j + 1] = copy[j]
-        await sleep(20)
+        await sleep(5)
         bars[j + 1].style.backgroundColor = '#02203c'
         bars[j].style.backgroundColor = '#02203c'
         j = j - 1

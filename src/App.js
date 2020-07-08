@@ -8,9 +8,9 @@ const App = () => {
 
   const createData = () => {
     const data = []
-    for (let i = 0; i < 75; i++) {
+    while (data.length <= 100) {
       let randNum = getRandomNum(10, 600)
-      data.push(randNum)
+      if (data.indexOf(randNum) === -1) data.push(randNum)
     }
     setData(data)
   }

@@ -51,7 +51,10 @@ const QuickSorter = () => {
   const quickSort = async (array, start, end) => {
     if (start >= end) return
     let index = await partition(array, start, end)
-    Promise.all([quickSort(array, start, index - 1), await quickSort(array, index + 1, end)])
+    Promise.all([quickSort(array, start, index - 1), quickSort(array, index + 1, end)])
+    // await quickSort(array, start, index - 1)
+    // await quickSort(array, index + 1, end)
+
   }
 
   const partition = async (array, start, end) => {
@@ -82,7 +85,7 @@ const QuickSorter = () => {
     let temp = array[firstIndx]
     array[firstIndx] = array[secondIndx]
     array[secondIndx] = temp
-    await sleep(25)
+    await sleep(50)
     bars[firstIndx].style.backgroundColor = '#02203c'
     bars[secondIndx].style.backgroundColor = '#02203c'
     return array

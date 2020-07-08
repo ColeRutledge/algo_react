@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 
 // Nav Styles
 
@@ -29,7 +28,7 @@ export const NavButtonCont = styled.div`
 
 // Bubble Sort Styles
 
-export const BubbleContainer = styled(motion.div)`
+export const BubbleContainer = styled.div`
   margin: 100px;
   display: flex;
   justify-content: space-between;
@@ -41,7 +40,7 @@ export const BubbleContainer = styled(motion.div)`
 
 // Selection Sort Styles
 
-export const SelectionContainer = styled(motion.div)`
+export const SelectionContainer = styled.div`
   margin: 100px;
   display: flex;
   justify-content: space-between;
@@ -53,7 +52,7 @@ export const SelectionContainer = styled(motion.div)`
 
 // Insertion Sort Styles
 
-export const InsertionContainer = styled(motion.div)`
+export const InsertionContainer = styled.div`
   margin: 100px;
   display: flex;
   justify-content: space-between;
@@ -64,7 +63,7 @@ export const InsertionContainer = styled(motion.div)`
 `
 // Quick Sort Styles
 
-export const QuickContainer = styled(motion.div)`
+export const QuickContainer = styled.div`
   margin: 100px;
   display: flex;
   justify-content: space-between;
@@ -75,7 +74,7 @@ export const QuickContainer = styled(motion.div)`
 `
 // Merge Sort Styles
 
-export const MergeContainer = styled(motion.div)`
+export const MergeContainer = styled.div`
   margin: 100px;
   display: flex;
   justify-content: space-between;
