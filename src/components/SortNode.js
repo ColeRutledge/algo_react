@@ -5,7 +5,7 @@ const SortNode = ({ value }) => {
 
   const divStyles = {
     backgroundColor: '#02203c',
-    height: `${value * 6}px`,
+    height: `${(value + 1) * 6}px`,
     width: '100%',
     margin: '1px',
     borderRadius: '5px',
