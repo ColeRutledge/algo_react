@@ -15,7 +15,7 @@ export const NavContainer = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: #02203c;
-  height: 150px;
+  height: 125px;
   margin: 0;
   border-bottom: 2px solid lightgrey;
   box-shadow: 0 0 3px 0 rgba(21,27,38,.15);
@@ -26,10 +26,22 @@ export const NavButtonCont = styled.div`
   justify-content: center;
 `
 
+// Footer Styles
+
+export const FooterContainer = styled.div`
+  box-shadow: 3px 0 0 0 rgba(21,27,38,.15);
+  border-top: 2px solid lightgrey;
+  background-color: #02203c;
+  height: 100px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+`
+
 // Bubble Sort Styles
 
 export const BubbleContainer = styled.div`
-  margin: 100px;
+  margin: 50px 100px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -41,7 +53,7 @@ export const BubbleContainer = styled.div`
 // Selection Sort Styles
 
 export const SelectionContainer = styled.div`
-  margin: 100px;
+  margin: 50px 100px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -53,7 +65,7 @@ export const SelectionContainer = styled.div`
 // Insertion Sort Styles
 
 export const InsertionContainer = styled.div`
-  margin: 100px;
+  margin: 50px 100px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -64,7 +76,7 @@ export const InsertionContainer = styled.div`
 // Quick Sort Styles
 
 export const QuickContainer = styled.div`
-  margin: 100px;
+  margin: 50px 100px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -75,7 +87,7 @@ export const QuickContainer = styled.div`
 // Merge Sort Styles
 
 export const MergeContainer = styled.div`
-  margin: 100px;
+  margin: 50px 100px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;

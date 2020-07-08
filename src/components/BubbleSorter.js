@@ -6,7 +6,7 @@ import { BubbleContainer } from '../styles'
 
 
 const BubbleSorter = () => {
-  const { data } = useContext(DataContext)
+  const { data, createData } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
 
   useEffect(() => setSortedData(data), [data])
@@ -40,12 +40,20 @@ const BubbleSorter = () => {
     return array
   }
 
-
-  if (!sortedData.length) return null
+  const styles = {
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: '#8A91991A',
+    borderBottom: '1px solid lightgrey',
+    boxShadow: '0 0 3px 0 rgba(21,27,38,.15)',
+  }
 
   return (
     <>
-      <button className='btn btn-danger' onClick={bubbleSort}>Sort!</button>
+      <div style={styles}>
+        {sortedData.length > 0 && <button className='btn btn-danger' onClick={bubbleSort}>Sort!</button>}
+        <button className='btn btn-danger' onClick={createData}>New Array</button>
+      </div>
       <BubbleContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </BubbleContainer>
@@ -54,42 +62,3 @@ const BubbleSorter = () => {
 }
 
 export default BubbleSorter
-
-// {sortedData.map((value, index) => <motion.div key={index} value={value} positionTransition className='bar' style={{borderRadius: '5px', margin: '2px', width: '100%', height: `${value}px`, backgroundColor: '#02203c'}} ></motion.div>)}
-
-  // useEffect(() => {
-  //   const timer = setTimeout(printTimer, 500)
-  //   return () => clearTimeout(timer)
-  // }, [sortedData])
-
-  // const printTimer = () => {
-  //   console.log('swap!!')
-  // }
-
-
-// const bars = document.getElementsByClassName('bar')
-// setSortedData(copy)
-
-// const jInterval = 50
-// const iInterval = jInterval * 50
-
-// for (let i = 0; i < copy.length - 1; i++) {
-//   setTimeout(() => {
-//     bars[i].style.backgroundColor = 'grey'
-//     for (let j = i + 1; j < copy.length; j++) {
-//       setTimeout(() => {
-//         bars[j].style.backgroundColor = '#C6FEDF'
-//         if (copy[j] > copy[j + 1]) {
-//             swap(j, j + 1, copy)
-//           }
-
-//         bars[j].style.backgroundColor = '#5CCFE6'
-//         }, (j + 1) * jInterval)
-//       }
-//   }, (i + 1) * iInterval)
-// }
-
-
-// function sleep(ms) {
-//   return new Promise(resolve => setTimeout(resolve, ms));
-// }

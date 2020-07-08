@@ -8,6 +8,7 @@ import SelectionSorter from './SelectionSorter'
 import InsertionSorter from './InsertionSorter'
 import QuickSorter from './QuickSorter'
 import MergeSorter from './MergeSorter'
+import { FooterContainer } from '../styles'
 
 const Routes = () => {
   return (
@@ -21,6 +22,7 @@ const Routes = () => {
         <Route path='/quick' render={() => <QuickSorter />} />
         <Route path='/merge' render={() => <MergeSorter />} />
       </Switch>
+      <FooterContainer />
     </BrowserRouter>
   )
 }

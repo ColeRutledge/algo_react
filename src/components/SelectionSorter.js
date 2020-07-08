@@ -5,7 +5,7 @@ import SortNode from './SortNode'
 import { SelectionContainer } from '../styles'
 
 const SelectionSorter = () => {
-  const { data } = useContext(DataContext)
+  const { data, createData } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
 
   useEffect(() => setSortedData(data), [data])
@@ -43,11 +43,20 @@ const SelectionSorter = () => {
     return array
   }
 
-  if (!sortedData.length) return null
+  const styles = {
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: '#8A91991A',
+    borderBottom: '1px solid lightgrey',
+    boxShadow: '0 0 3px 0 rgba(21,27,38,.15)',
+  }
 
   return (
     <>
-      <button className='btn btn-danger' onClick={selectionSort}>Sort!</button>
+      <div style={styles}>
+        {sortedData.length > 0 && <button className='btn btn-danger' onClick={selectionSort}>Sort!</button>}
+        <button className='btn btn-danger' onClick={createData}>New Array</button>
+      </div>
       <SelectionContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SelectionContainer>

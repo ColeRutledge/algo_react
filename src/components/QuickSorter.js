@@ -5,7 +5,7 @@ import SortNode from './SortNode'
 import { QuickContainer } from '../styles'
 
 const QuickSorter = () => {
-  const { data } = useContext(DataContext)
+  const { data, createData } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
   const bars = document.getElementsByClassName('bar')
 
@@ -51,9 +51,9 @@ const QuickSorter = () => {
   const quickSort = async (array, start, end) => {
     if (start >= end) return
     let index = await partition(array, start, end)
-    Promise.all([quickSort(array, start, index - 1), quickSort(array, index + 1, end)])
-    // await quickSort(array, start, index - 1)
-    // await quickSort(array, index + 1, end)
+    // Promise.all([quickSort(array, start, index - 1), quickSort(array, index + 1, end)])
+    await quickSort(array, start, index - 1)
+    await quickSort(array, index + 1, end)
 
   }
 
@@ -91,11 +91,22 @@ const QuickSorter = () => {
     return array
   }
 
-  if (!sortedData.length) return null
+  // if (!sortedData.length) return null
+
+  const styles = {
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: '#8A91991A',
+    borderBottom: '1px solid lightgrey',
+    boxShadow: '0 0 3px 0 rgba(21,27,38,.15)',
+  }
 
   return (
     <>
-      <button className='btn btn-danger' onClick={quickSortHelper}>Sort!</button>
+      <div style={styles}>
+        {sortedData.length > 0 && <button className='btn btn-danger' onClick={quickSortHelper}>Sort!</button>}
+        <button className='btn btn-danger' onClick={createData}>New Array</button>
+      </div>
       <QuickContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </QuickContainer>
