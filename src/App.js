@@ -7,21 +7,15 @@ const App = () => {
   const [ data, setData ] = useState([])
 
   const createData = () => {
-    const data = []
-    while (data.length <= 100) {
-      let randNum = getRandomNum(10, 600)
-      if (data.indexOf(randNum) === -1) data.push(randNum)
-    }
-    setData(data)
+    let data = [...Array(100).keys()]
+    data = data.sort(() => Math.random() - 0.5)
+    setData([...data])
   }
-
-  const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min) + min)
 
   const context = {
     data,
     setData,
     createData,
-    getRandomNum,
   }
 
   return (

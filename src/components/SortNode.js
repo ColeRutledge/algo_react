@@ -5,7 +5,7 @@ const SortNode = ({ value }) => {
 
   const divStyles = {
     backgroundColor: '#02203c',
-    height: `${value}px`,
+    height: `${(value + 1) * 6}px`,
     width: '100%',
     margin: '1px',
     borderRadius: '5px',
@@ -20,8 +20,8 @@ const SortNode = ({ value }) => {
 
   return (
     <>
-      <motion.div layoutTransition={tween} className='bar' style={divStyles}></motion.div>
-      {/* <div className='bar' style={divStyles}></div> */}
+      {/* <motion.div layoutTransition={tween} className='bar' style={divStyles}></motion.div> */}
+      <div className='bar' style={divStyles}></div>
     </>
   )
 }
