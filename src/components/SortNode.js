@@ -20,8 +20,8 @@ const SortNode = ({ value }) => {
 
   return (
     <>
-      <motion.div layoutTransition={tween} className='bar' style={divStyles}></motion.div>
-      {/* <div className='bar' style={divStyles}></div> */}
+      {/* <motion.div layoutTransition={tween} className='bar' style={divStyles}></motion.div> */}
+      <div className='bar' style={divStyles}></div>
     </>
   )
 }

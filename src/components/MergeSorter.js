@@ -2,13 +2,17 @@ import React, { useState, useContext, useEffect } from 'react'
 
 import DataContext from '../contexts/DataContext'
 import SortNode from './SortNode'
-import { MergeContainer } from '../styles'
+import MetricWidget from './MetricWidget'
+import { MergeContainer, MetricBar } from '../styles'
 
 const MergeSorter = () => {
   const { data, createData } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
+  const [ arrAccess, setArrAccess ] = useState(0)
+  const [ swaps, setSwaps ] = useState(0)
+
   const bars = document.getElementsByClassName('bar')
-  let animations, copy
+  let animations, copy, accessCount = 0, swapCount = 0
 
   useEffect(() => setSortedData(data), [data])
 
@@ -21,11 +25,22 @@ const MergeSorter = () => {
   }
 
   const mergeSort = async (array) => {
+
     if (array.length <= 1) return array
 
     let midIdx = Math.floor(array.length / 2)
+
     let left = array.slice(0, midIdx)
+    for (let i = 0; i < left.length; i++) {
+      accessCount++
+      setArrAccess(accessCount)
+    }
+
     let right = array.slice(midIdx)
+    for (let i = 0; i < right.length; i++) {
+      accessCount++
+      setArrAccess(accessCount)
+    }
 
     let sortLeft = await mergeSort(left)
     let sortRight = await mergeSort(right)
@@ -42,8 +57,16 @@ const MergeSorter = () => {
       let ele2 = array2.length ? array2[0] : Infinity
 
       let next, firstBar, secondBar
-      if (ele1 !== Infinity) firstBar = bars[copy.indexOf(ele1)]
-      if (ele2 !== Infinity) secondBar = bars[copy.indexOf(ele2)]
+      if (ele1 !== Infinity) {
+        accessCount++
+        firstBar = bars[copy.indexOf(ele1)]
+      }
+      if (ele2 !== Infinity) {
+        accessCount++
+        secondBar = bars[copy.indexOf(ele2)]
+      }
+
+      setArrAccess(accessCount)
 
       if (ele1 < ele2) {
         firstBar.style.backgroundColor = '#DC3545'
@@ -65,6 +88,13 @@ const MergeSorter = () => {
     }
 
     for (let i = 0; i < merged.length; i++) {
+      let originIdx = animations.indexOf(merged[i])
+      let newIdx = start
+      if (originIdx !== newIdx) {
+        swapCount++
+        setSwaps(swapCount)
+      }
+
       bars[start].style.backgroundColor = '#DC3545'
       animations[start++] = merged[i]
       await sleep(20)
@@ -72,23 +102,17 @@ const MergeSorter = () => {
       setSortedData([...animations])
     }
 
+    setArrAccess(accessCount)
     return merged
-  }
-
-  const styles = {
-    display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: '#8A91991A',
-    borderBottom: '1px solid lightgrey',
-    boxShadow: '0 0 3px 0 rgba(21,27,38,.15)',
   }
 
   return (
     <>
-      <div style={styles}>
+      <MetricBar>
         {sortedData.length > 0 && <button className='btn btn-danger' onClick={mergeHelper}>Sort!</button>}
         <button className='btn btn-danger' onClick={createData}>New Array</button>
-      </div>
+        <MetricWidget arrAccess={arrAccess} swaps={swaps} />
+      </MetricBar>
       <MergeContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </MergeContainer>

@@ -7,4 +7,13 @@ body {
 button {
   margin: 10px;
   width: 150px;
+  height: 38px;
+}
+
+i {
+  margin: 10px;
+}
+
+a {
+  color: inherit;
 }

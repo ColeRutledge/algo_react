@@ -12,8 +12,6 @@ const App = () => {
     setData([...data])
   }
 
-  // const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min) + min)
-
   const context = {
     data,
     setData,

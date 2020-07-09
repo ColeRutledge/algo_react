@@ -2,12 +2,17 @@ import React, { useContext, useState, useEffect } from 'react'
 
 import DataContext from '../contexts/DataContext'
 import SortNode from './SortNode'
-import { BubbleContainer } from '../styles'
+import MetricWidget from './MetricWidget'
+import { BubbleContainer, MetricBar } from '../styles'
 
 
 const BubbleSorter = () => {
   const { data, createData } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
+  const [ arrAccess, setArrAccess ] = useState(0)
+  const [ swaps, setSwaps ] = useState(0)
+
+  let accessCount = 0, swapCount = 0
 
   useEffect(() => setSortedData(data), [data])
 
@@ -18,12 +23,18 @@ const BubbleSorter = () => {
 
     for (let i = 0; i < copy.length; i++) {
       for (let j = 0; j < copy.length - i; j++) {
+        accessCount++
+        setArrAccess(accessCount)
         if (copy[j] > copy[j + 1]) {
           const swapped = await swap(j, j + 1, copy)
+          swapCount++
+          setSwaps(swapCount)
           setSortedData([...swapped])
           // await sleep(20)
         }
       }
+      // setSwaps(swapCount)
+      // setArrAccess(accessCount)
     }
   }
 
@@ -40,20 +51,21 @@ const BubbleSorter = () => {
     return array
   }
 
-  const styles = {
-    display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: '#8A91991A',
-    borderBottom: '1px solid lightgrey',
-    boxShadow: '0 0 3px 0 rgba(21,27,38,.15)',
-  }
+  // const styles = {
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   backgroundColor: '#8A91991A',
+  //   borderBottom: '1px solid lightgrey',
+  //   boxShadow: '0 0 3px 0 rgba(21,27,38,.15)',
+  // }
 
   return (
     <>
-      <div style={styles}>
+      <MetricBar>
         {sortedData.length > 0 && <button className='btn btn-danger' onClick={bubbleSort}>Sort!</button>}
         <button className='btn btn-danger' onClick={createData}>New Array</button>
-      </div>
+        <MetricWidget arrAccess={arrAccess} swaps={swaps} />
+      </MetricBar>
       <BubbleContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </BubbleContainer>
