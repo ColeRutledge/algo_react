@@ -1,17 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react'
 
 import DataContext from '../contexts/DataContext'
+import MetricBar from './MetricBar'
+import AlgoInfo from './AlgoInfo'
 import SortNode from './SortNode'
-import MetricWidget from './MetricWidget'
-import { InsertionContainer, MetricBar } from '../styles'
+import { SortContainer } from '../styles'
 
 const InsertionSorter = () => {
-  const { data, createData } = useContext(DataContext)
+  const { data, createData, metrics, setMetrics } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
-  const [ arrAccess, setArrAccess ] = useState(0)
-  const [ swaps, setSwaps ] = useState(0)
 
-  let accessCount = 0, swapCount = 0
+  const insertion = {...metrics.insertion}
 
   useEffect(() => setSortedData(data), [data])
 
@@ -19,16 +18,18 @@ const InsertionSorter = () => {
 
   const insertionSort = async () => {
     const copy = data.slice()
+    insertion.access = 0
+    insertion.swaps = 0
     const bars = document.getElementsByClassName('bar')
 
     for (let i = 1; i < copy.length; i++) {
-      accessCount++
-      setArrAccess(accessCount)
+      insertion.access++
       let key = copy[i]
       let j = i - 1
       while (j >= 0 && copy[j] > key) {
-        accessCount++
-        swapCount++
+        insertion.access++
+        insertion.swaps++
+
         bars[j + 1].style.backgroundColor = '#DC3545'
         bars[j].style.backgroundColor = '#DC3545'
         copy[j + 1] = copy[j]
@@ -36,35 +37,33 @@ const InsertionSorter = () => {
         bars[j + 1].style.backgroundColor = '#02203c'
         bars[j].style.backgroundColor = '#02203c'
         j = j - 1
-        setSwaps(swapCount)
-        setArrAccess(accessCount)
+
+        setMetrics({ ...metrics, insertion })
         setSortedData([...copy])
       }
-      accessCount++
+      insertion.access++
       copy[j + 1] = key
-      setArrAccess(accessCount)
       setSortedData([...copy])
     }
   }
 
-  // const styles = {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   backgroundColor: '#8A91991A',
-  //   borderBottom: '1px solid lightgrey',
-  //   boxShadow: '0 0 3px 0 rgba(21,27,38,.15)',
-  // }
+  const info = {
+    uses: 'Insertion Sort has one advantage that makes it absolutely supreme in one special case. Insertion Sort is what\'s known as an "online" algorithm. Online algorithms are great when you\'re dealing with streaming data, because they can sort the data live as it is received.',
+    time: 'n is the length of the input array. The outer loop i contributes O(n) in isolation, this is plain to see. The inner loop j is more complicated. We know j will iterate until it finds an appropriate place to insert the currElement into the sorted region. The two loops are nested so our total time complexity is O(n * n / 2) = O(n2).',
+    space: 'The amount of memory consumed by the algorithm does not increase relative to the size of the input array. We use the same amount of memory and create the same amount of variables regardless of the size of our input. A quick indicator of this is the fact that we don\'t create any arrays.',
+  }
 
   return (
     <>
-      <MetricBar>
+      <MetricBar />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         {sortedData.length > 0 && <button className='btn btn-danger' onClick={insertionSort}>Sort!</button>}
         <button className='btn btn-danger' onClick={createData}>New Array</button>
-        <MetricWidget arrAccess={arrAccess} swaps={swaps} />
-      </MetricBar>
-      <InsertionContainer>
+      </div>
+      <SortContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
-      </InsertionContainer>
+      </SortContainer>
+      <AlgoInfo info={info} />
     </>
   )
 }

@@ -1,25 +1,33 @@
 import styled from 'styled-components'
 
-// Metric Widget Styles
+// Metric Bar Styles
 
-export const MetricBar = styled.div`
+export const MetricWidgetContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #8A91991A;
-  border-bottom: 1px solid lightgrey;
-  box-shadow: 0 0 3px 0 rgba(21,27,38,.15);
 `
 
-export const MetricContainer = styled.div`
+export const MetricBarContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90px;
+  border-bottom: 1px solid lightgrey;
+  box-shadow: 0 0 3px 0 rgba(21,27,38,.15);
+  background-color: #8A91991A;
+`
+
+
+export const WidgetContainer = styled.div`
   display: flex;
   flex-direction: column;
   font-weight: bold;
+  color: #02203c;
   justify-content: center;
   width: 200px;
   height: 75px;
   padding: 0 10px 0 0;
-  margin: 0 10px;
   border-left: 1px solid lightgrey;
   border-right: 1px solid lightgrey;
 `
@@ -28,8 +36,8 @@ export const MetricContainer = styled.div`
 
 export const NavTitle = styled.h1`
   margin: 10px;
-  font-size: 1.5em;
-  color: #BAE67E;
+  font-size: 36px;
+  color: #f6f9fc;
   font-weight: 700;
 `
 export const NavContainer = styled.div`
@@ -38,15 +46,26 @@ export const NavContainer = styled.div`
   align-items: center;
   justify-items: center;
   background-color: #02203c;
-  height: 100px;
-  margin: 0;
+  height: 120px;
   border-bottom: 2px solid lightgrey;
   box-shadow: 0 0 3px 0 rgba(21,27,38,.15);
 `
 
 export const NavButtonCont = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  color: #BAE67E;
+`
+
+// Algo Info Styles
+
+export const AlgoInfoCont = styled.div`
+  display: grid;
+  grid-template-columns: 2fr .5fr 2fr .5fr 2fr;
+  justify-items: center;
+  font-size: 16px;
+  margin: 50px 100px;
+  padding: 10px;
 `
 
 // Footer Styles
@@ -55,7 +74,7 @@ export const FooterContainer = styled.div`
   box-shadow: 3px 0 0 0 rgba(21,27,38,.15);
   border-top: 2px solid lightgrey;
   background-color: #02203c;
-  height: 100px;
+  height: 125px;
   position: fixed;
   width: 100%;
   bottom: 0;
@@ -65,9 +84,9 @@ export const FooterContainer = styled.div`
   align-items: center;
 `
 
-// Bubble Sort Styles
+// Sort Container Styles
 
-export const BubbleContainer = styled.div`
+export const SortContainer = styled.div`
   margin: 50px 100px;
   display: flex;
   justify-content: space-between;
@@ -77,48 +96,13 @@ export const BubbleContainer = styled.div`
   overflow: hidden;
 `
 
-// Selection Sort Styles
+// Sort Node Styles
 
-export const SelectionContainer = styled.div`
-  margin: 50px 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  height: 600px;
+export const Node = styled.div`
+  background-color: #02203c;
+  width: 100%;
+  margin: 1px;
   border-radius: 4px;
-  overflow: hidden;
-`
 
-// Insertion Sort Styles
-
-export const InsertionContainer = styled.div`
-  margin: 50px 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  height: 600px;
-  border-radius: 4px;
-  overflow: hidden;
-`
-// Quick Sort Styles
-
-export const QuickContainer = styled.div`
-  margin: 50px 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  height: 600px;
-  border-radius: 4px;
-  overflow: hidden;
-`
-// Merge Sort Styles
-
-export const MergeContainer = styled.div`
-  margin: 50px 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  height: 600px;
-  border-radius: 4px;
-  overflow: hidden;
+  &:hover { background-color: #032A4F !important; }
 `

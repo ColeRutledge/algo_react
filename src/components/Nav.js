@@ -1,29 +1,28 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { NavTitle, NavContainer, NavButtonCont } from '../styles'
 
 const Nav = () => {
 
+  const styles = {
+    margin: '20px',
+    fontWeight: 'bold',
+    fontSize: '19px',
+    paddingBottom: '4px',
+    paddingRight: '0',
+    paddingLeft: '0',
+  }
+
   return (
     <>
       <NavContainer>
-      <NavTitle>Algo-React</NavTitle>
+      <NavTitle>AlgoReact</NavTitle>
         <NavButtonCont>
-          <Link to='/bubble'>
-            <button className='btn btn-danger' type='button'>Bubble Sort</button>
-          </Link>
-          <Link to='/selection'>
-            <button className='btn btn-danger' type='button'>Selection Sort</button>
-          </Link>
-          <Link to='/insertion'>
-            <button className='btn btn-danger' type='button'>Insertion Sort</button>
-          </Link>
-          <Link to='/quick'>
-            <button className='btn btn-danger' type='button'>Quick Sort</button>
-          </Link>
-          <Link to='/merge'>
-            <button className='btn btn-danger' type='button'>Merge Sort</button>
-          </Link>
+          <NavLink activeClassName="navbar--active" style={styles} to='/bubble'>Bubble Sort</NavLink>
+          <NavLink activeClassName="navbar--active" style={styles} to='/selection'>Selection Sort</NavLink>
+          <NavLink activeClassName="navbar--active" style={styles} to='/insertion'>Insertion Sort</NavLink>
+          <NavLink activeClassName="navbar--active" style={styles} to='/quick'>Quick Sort</NavLink>
+          <NavLink activeClassName="navbar--active" style={styles} to='/merge'>Merge Sort</NavLink>
         </NavButtonCont>
       </NavContainer>
     </>

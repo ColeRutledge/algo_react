@@ -11,9 +11,20 @@ button {
 }
 
 i {
-  margin: 10px;
+  margin: 5px;
 }
 
 a {
   color: inherit;
+  text-decoration: none!important;
 }
+
+a:hover {
+  color: inherit;
+}
+
+.navbar--active {
+  border-bottom: 2px solid #f6f9fc;
+}
+
+

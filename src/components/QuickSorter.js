@@ -1,17 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react'
 
 import DataContext from '../contexts/DataContext'
+import MetricBar from './MetricBar'
+import AlgoInfo from './AlgoInfo'
 import SortNode from './SortNode'
-import MetricWidget from './MetricWidget'
-import { QuickContainer, MetricBar } from '../styles'
+import { SortContainer } from '../styles'
 
 const QuickSorter = () => {
-  const { data, createData } = useContext(DataContext)
+  const { data, createData, metrics, setMetrics } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
-  const [ arrAccess, setArrAccess ] = useState(0)
-  const [ swaps, setSwaps ] = useState(0)
 
-  let accessCount = 0, swapCount = 0
+  const quick = {...metrics.quick}
   const bars = document.getElementsByClassName('bar')
 
   useEffect(() => setSortedData(data), [data])
@@ -20,6 +19,8 @@ const QuickSorter = () => {
 
   const quickSortHelper = async () => {
     const copy = data.slice()
+    quick.access = 0
+    quick.swaps = 0
     await quickSort(copy, 0, copy.length - 1)
   }
 
@@ -33,25 +34,22 @@ const QuickSorter = () => {
 
   const partition = async (array, start, end) => {
     let pivotValue = array[end]
-    accessCount++
-    setArrAccess(accessCount)
+    quick.access++
+    setMetrics({ ...metrics, quick })
     let pivotIndex = start
     for (let i = start; i < end; i++) {
-      accessCount++
-      setArrAccess(accessCount)
+      quick.access++
       if (array[i] < pivotValue) {
         const swapped = await swap(i, pivotIndex, array)
-        swapCount++
-        setSwaps(swapCount)
+        quick.swaps++
         setSortedData([...swapped])
         pivotIndex++
       }
     }
 
     const swapped = await swap(pivotIndex, end, array)
-    swapCount++
-    setSwaps(swapCount)
-
+    quick.swaps++
+    setMetrics({ ...metrics, quick })
     setSortedData([...swapped])
     return pivotIndex
   }
@@ -68,16 +66,23 @@ const QuickSorter = () => {
     return array
   }
 
+  const info = {
+    uses: 'When you are in a pinch and need to throw down an efficient sort (on average). The recursive code is light and simple to implement; much smaller than mergeSort. When constant space is important to you, use the in-place version. This will of course trade off some simplicity of implementation.',
+    time: 'Avg Case: O(n log(n)). Worst Case: O(n2). n is the length of the input array. The partition step alone is O(n). The partition step occurs in every recursive call, so our total complexities are: Best Case: O(n * log(n)) Worst Case: O(n2)',
+    space: 'Our implementation of quickSort uses O(n) space because of the partition arrays we create. There is an in-place version of quickSort that uses O(log(n)) space. O(log(n)) space is not huge benefit over O(n). You\'ll also find our version of quickSort as easier to remember, easier to implement. Just know that a O(logn) space quickSort exists.',
+  }
+
   return (
     <>
-      <MetricBar>
+      <MetricBar />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         {sortedData.length > 0 && <button className='btn btn-danger' onClick={quickSortHelper}>Sort!</button>}
         <button className='btn btn-danger' onClick={createData}>New Array</button>
-        <MetricWidget arrAccess={arrAccess} swaps={swaps} />
-      </MetricBar>
-      <QuickContainer>
+      </div>
+      <SortContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
-      </QuickContainer>
+      </SortContainer>
+      <AlgoInfo info={info} />
     </>
   )
 }

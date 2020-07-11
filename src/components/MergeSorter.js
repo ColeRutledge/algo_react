@@ -1,18 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react'
 
 import DataContext from '../contexts/DataContext'
+import MetricBar from './MetricBar'
+import AlgoInfo from './AlgoInfo'
 import SortNode from './SortNode'
-import MetricWidget from './MetricWidget'
-import { MergeContainer, MetricBar } from '../styles'
+import { SortContainer } from '../styles'
 
 const MergeSorter = () => {
-  const { data, createData } = useContext(DataContext)
+  const { data, createData, metrics, setMetrics } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
-  const [ arrAccess, setArrAccess ] = useState(0)
-  const [ swaps, setSwaps ] = useState(0)
 
+  let copy, animations
+  const mergeStats = {...metrics.merge}
   const bars = document.getElementsByClassName('bar')
-  let animations, copy, accessCount = 0, swapCount = 0
 
   useEffect(() => setSortedData(data), [data])
 
@@ -21,6 +21,8 @@ const MergeSorter = () => {
   const mergeHelper = async () => {
     copy = data.slice()
     animations = data.slice()
+    mergeStats.access = 0
+    mergeStats.swaps = 0
     await mergeSort(copy)
   }
 
@@ -32,14 +34,14 @@ const MergeSorter = () => {
 
     let left = array.slice(0, midIdx)
     for (let i = 0; i < left.length; i++) {
-      accessCount++
-      setArrAccess(accessCount)
+      mergeStats.access++
+      // setMetrics({ ...metrics, merge: mergeStats })
     }
 
     let right = array.slice(midIdx)
     for (let i = 0; i < right.length; i++) {
-      accessCount++
-      setArrAccess(accessCount)
+      mergeStats.access++
+      // setMetrics({ ...metrics, merge: mergeStats })
     }
 
     let sortLeft = await mergeSort(left)
@@ -58,15 +60,15 @@ const MergeSorter = () => {
 
       let next, firstBar, secondBar
       if (ele1 !== Infinity) {
-        accessCount++
+        mergeStats.access++
         firstBar = bars[copy.indexOf(ele1)]
       }
       if (ele2 !== Infinity) {
-        accessCount++
+        mergeStats.access++
         secondBar = bars[copy.indexOf(ele2)]
       }
 
-      setArrAccess(accessCount)
+      setMetrics({ ...metrics, merge: mergeStats })
 
       if (ele1 < ele2) {
         firstBar.style.backgroundColor = '#DC3545'
@@ -91,8 +93,8 @@ const MergeSorter = () => {
       let originIdx = animations.indexOf(merged[i])
       let newIdx = start
       if (originIdx !== newIdx) {
-        swapCount++
-        setSwaps(swapCount)
+        mergeStats.swaps++
+        setMetrics({ ...metrics, merge: mergeStats })
       }
 
       bars[start].style.backgroundColor = '#DC3545'
@@ -102,20 +104,27 @@ const MergeSorter = () => {
       setSortedData([...animations])
     }
 
-    setArrAccess(accessCount)
+    setMetrics({ ...metrics, merge: mergeStats })
     return merged
+  }
+
+  const info = {
+    uses: 'Unless we, the engineers, have access in advance to some unique, exploitable insight about our dataset, it turns out that O(n log n) time is the best we can do when sorting unknown datasets. If you have unlimited memory available, use it, it\'s fast! If you have a decent amount of memory available and a medium sized dataset, run some tests first, but use it!',
+    time: 'n is the length of the input array. We must calculate how many recursive calls we make. The number of recursive calls is the number of times we must split the array to reach the base case. Since we split in half each time, the number of recursive calls is O(log(n)). Besides the recursive calls, we must consider the while loop within the merge function, which contributes O(n) in isolation. We call merge in every recursive mergeSort call, so the total complexity is O(n * log(n)).',
+    space: 'Merge Sort is the first non-O(1) space sorting algorithm we\'ve seen thus far. The larger the size of our input array, the greater the number of subarrays we must create in memory. These are not free! They each take up finite space, and we will need a new subarray for each element in the original input. Therefore, Merge Sort has a linear space complexity, O(n).',
   }
 
   return (
     <>
-      <MetricBar>
+      <MetricBar />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         {sortedData.length > 0 && <button className='btn btn-danger' onClick={mergeHelper}>Sort!</button>}
         <button className='btn btn-danger' onClick={createData}>New Array</button>
-        <MetricWidget arrAccess={arrAccess} swaps={swaps} />
-      </MetricBar>
-      <MergeContainer>
+      </div>
+      <SortContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
-      </MergeContainer>
+      </SortContainer>
+      <AlgoInfo info={info} />
     </>
   )
 }
