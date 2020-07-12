@@ -1,14 +1,15 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 
 import DataContext from '../contexts/DataContext'
-import MetricBar from './MetricBar'
+import ControlWidget from './ControlWidget'
 import AlgoInfo from './AlgoInfo'
 import SortNode from './SortNode'
 import { SortContainer } from '../styles'
 
 const MergeSorter = () => {
-  const { data, createData, metrics, setMetrics } = useContext(DataContext)
+  const { data, metrics, setMetrics, isRunning, setIsRunning } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
+  const refContainer = useRef(isRunning)
 
   let copy, animations
   const mergeStats = {...metrics.merge}
@@ -16,9 +17,15 @@ const MergeSorter = () => {
 
   useEffect(() => setSortedData(data), [data])
 
+  useEffect(() => {
+    refContainer.current = isRunning
+  }, [isRunning])
+
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   const mergeHelper = async () => {
+    setIsRunning(true)
+    await sleep(20)
     copy = data.slice()
     animations = data.slice()
     mergeStats.access = 0
@@ -35,17 +42,17 @@ const MergeSorter = () => {
     let left = array.slice(0, midIdx)
     for (let i = 0; i < left.length; i++) {
       mergeStats.access++
-      // setMetrics({ ...metrics, merge: mergeStats })
     }
 
     let right = array.slice(midIdx)
     for (let i = 0; i < right.length; i++) {
       mergeStats.access++
-      // setMetrics({ ...metrics, merge: mergeStats })
     }
 
     let sortLeft = await mergeSort(left)
+    if (!refContainer.current) return
     let sortRight = await mergeSort(right)
+    if (!refContainer.current) return
 
     return await merge(sortLeft, sortRight)
   }
@@ -86,6 +93,7 @@ const MergeSorter = () => {
         secondBar.style.backgroundColor = '#02203c'
       }
 
+
       merged.push(next)
     }
 
@@ -101,26 +109,18 @@ const MergeSorter = () => {
       animations[start++] = merged[i]
       await sleep(20)
       bars[start - 1].style.backgroundColor = '#02203c'
+      if (!refContainer.current) return 
       setSortedData([...animations])
     }
 
+    if (!refContainer.current) return []
     setMetrics({ ...metrics, merge: mergeStats })
     return merged
   }
 
-  const info = {
-    uses: 'Unless we, the engineers, have access in advance to some unique, exploitable insight about our dataset, it turns out that O(n log n) time is the best we can do when sorting unknown datasets. If you have unlimited memory available, use it, it\'s fast! If you have a decent amount of memory available and a medium sized dataset, run some tests first, but use it!',
-    time: 'n is the length of the input array. We must calculate how many recursive calls we make. The number of recursive calls is the number of times we must split the array to reach the base case. Since we split in half each time, the number of recursive calls is O(log(n)). Besides the recursive calls, we must consider the while loop within the merge function, which contributes O(n) in isolation. We call merge in every recursive mergeSort call, so the total complexity is O(n * log(n)).',
-    space: 'Merge Sort is the first non-O(1) space sorting algorithm we\'ve seen thus far. The larger the size of our input array, the greater the number of subarrays we must create in memory. These are not free! They each take up finite space, and we will need a new subarray for each element in the original input. Therefore, Merge Sort has a linear space complexity, O(n).',
-  }
-
   return (
     <>
-      <MetricBar />
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {sortedData.length > 0 && <button className='btn btn-danger' onClick={mergeHelper}>Sort!</button>}
-        <button className='btn btn-danger' onClick={createData}>New Array</button>
-      </div>
+      <ControlWidget algo={mergeHelper} />
       <SortContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
@@ -130,3 +130,10 @@ const MergeSorter = () => {
 }
 
 export default MergeSorter
+
+
+const info = {
+  uses: 'Unless we, the engineers, have access in advance to some unique, exploitable insight about our dataset, it turns out that O(n log n) time is the best we can do when sorting unknown datasets. If you have unlimited memory available, use it, it\'s fast! If you have a decent amount of memory available and a medium sized dataset, run some tests first, but use it!',
+  time: 'n is the length of the input array. We must calculate how many recursive calls we make. The number of recursive calls is the number of times we must split the array to reach the base case. Since we split in half each time, the number of recursive calls is O(log(n)). Besides the recursive calls, we must consider the while loop within the merge function, which contributes O(n) in isolation. We call merge in every recursive mergeSort call, so the total complexity is O(n * log(n)).',
+  space: 'Merge Sort is the first non-O(1) space sorting algorithm we\'ve seen thus far. The larger the size of our input array, the greater the number of subarrays we must create in memory. These are not free! They each take up finite space, and we will need a new subarray for each element in the original input. Therefore, Merge Sort has a linear space complexity, O(n).',
+}

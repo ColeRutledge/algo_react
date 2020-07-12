@@ -32,6 +32,12 @@ export const WidgetContainer = styled.div`
   border-right: 1px solid lightgrey;
 `
 
+// Control Widget Styles
+
+export const ControlSlider = styled.form`
+
+`
+
 // Nav Styles
 
 export const NavTitle = styled.h1`

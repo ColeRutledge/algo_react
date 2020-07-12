@@ -14,13 +14,17 @@ const metricDefault = {
 const App = () => {
   const [ data, setData ] = useState([])
   const [ metrics, setMetrics ] = useState(metricDefault)
+  const [ dataSize, setDataSize ] = useState(40)
+  const [ isRunning, setIsRunning ] = useState(false)
 
-  const createData = () => {
-    let data = [...Array(50).keys()]
+  const createData = (value) => {
+    setIsRunning(false)
+    let data = value > 0 ? [...Array(value).keys()] : [...Array(dataSize).keys()]
     data = data.sort(() => Math.random() - 0.5)
     setData([...data])
     setMetrics({...metricDefault})
   }
+
 
   const context = {
     data,
@@ -28,6 +32,10 @@ const App = () => {
     metrics,
     setMetrics,
     createData,
+    dataSize,
+    setDataSize,
+    isRunning,
+    setIsRunning,
   }
 
   return (

@@ -1,23 +1,29 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 
 import DataContext from '../contexts/DataContext'
-import MetricBar from './MetricBar'
+import ControlWidget from './ControlWidget'
 import AlgoInfo from './AlgoInfo'
 import SortNode from './SortNode'
 import { SortContainer } from '../styles'
 
 const QuickSorter = () => {
-  const { data, createData, metrics, setMetrics } = useContext(DataContext)
+  const { data, metrics, setMetrics, isRunning, setIsRunning } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
+  const refContainer = useRef(isRunning)
 
   const quick = {...metrics.quick}
   const bars = document.getElementsByClassName('bar')
 
   useEffect(() => setSortedData(data), [data])
+  useEffect(() => {
+    refContainer.current = isRunning
+  }, [isRunning])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
   const quickSortHelper = async () => {
+    setIsRunning(true)
+    await sleep(20)
     const copy = data.slice()
     quick.access = 0
     quick.swaps = 0
@@ -26,6 +32,7 @@ const QuickSorter = () => {
 
   const quickSort = async (array, start, end) => {
     if (start >= end) return
+    if (!refContainer.current) return
     let index = await partition(array, start, end)
     await quickSort(array, start, index - 1)
     await quickSort(array, index + 1, end)
@@ -41,6 +48,7 @@ const QuickSorter = () => {
       quick.access++
       if (array[i] < pivotValue) {
         const swapped = await swap(i, pivotIndex, array)
+        if (!refContainer.current) return
         quick.swaps++
         setSortedData([...swapped])
         pivotIndex++
@@ -49,6 +57,7 @@ const QuickSorter = () => {
 
     const swapped = await swap(pivotIndex, end, array)
     quick.swaps++
+    if (!refContainer.current) return
     setMetrics({ ...metrics, quick })
     setSortedData([...swapped])
     return pivotIndex
@@ -66,19 +75,9 @@ const QuickSorter = () => {
     return array
   }
 
-  const info = {
-    uses: 'When you are in a pinch and need to throw down an efficient sort (on average). The recursive code is light and simple to implement; much smaller than mergeSort. When constant space is important to you, use the in-place version. This will of course trade off some simplicity of implementation.',
-    time: 'Avg Case: O(n log(n)). Worst Case: O(n2). n is the length of the input array. The partition step alone is O(n). The partition step occurs in every recursive call, so our total complexities are: Best Case: O(n * log(n)) Worst Case: O(n2)',
-    space: 'Our implementation of quickSort uses O(n) space because of the partition arrays we create. There is an in-place version of quickSort that uses O(log(n)) space. O(log(n)) space is not huge benefit over O(n). You\'ll also find our version of quickSort as easier to remember, easier to implement. Just know that a O(logn) space quickSort exists.',
-  }
-
   return (
     <>
-      <MetricBar />
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {sortedData.length > 0 && <button className='btn btn-danger' onClick={quickSortHelper}>Sort!</button>}
-        <button className='btn btn-danger' onClick={createData}>New Array</button>
-      </div>
+      <ControlWidget algo={quickSortHelper} />
       <SortContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
@@ -88,6 +87,13 @@ const QuickSorter = () => {
 }
 
 export default QuickSorter
+
+
+const info = {
+  uses: 'When you are in a pinch and need to throw down an efficient sort (on average). The recursive code is light and simple to implement; much smaller than mergeSort. When constant space is important to you, use the in-place version. This will of course trade off some simplicity of implementation.',
+  time: 'Avg Case: O(n log(n)). Worst Case: O(n2). n is the length of the input array. The partition step alone is O(n). The partition step occurs in every recursive call, so our total complexities are: Best Case: O(n * log(n)) Worst Case: O(n2)',
+  space: 'Our implementation of quickSort uses O(n) space because of the partition arrays we create. There is an in-place version of quickSort that uses O(log(n)) space. O(log(n)) space is not huge benefit over O(n). You\'ll also find our version of quickSort as easier to remember, easier to implement. Just know that a O(logn) space quickSort exists.',
+}
 
 
   // const quickSort = async (array) => {
