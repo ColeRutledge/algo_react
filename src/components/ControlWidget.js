@@ -1,28 +1,22 @@
 import React, { useContext } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 // import { withStyles, makeStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import Slider from '@material-ui/core/Slider'
+import { Grid, Slider } from '@material-ui/core';
 import PlayCircleOutlineSharpIcon from '@material-ui/icons/PlayCircleOutlineSharp';
 import LoopSharpIcon from '@material-ui/icons/LoopSharp';
 
 import DataContext from '../contexts/DataContext'
 
 const ControlWidget = ({ algo } ) => {
-  const { data, createData, dataSize, setDataSize, isRunning } = useContext(DataContext)
-
-
-  // useEffect(() =>  {
-  //   if (isRunning) {
-
-  //   }
-  // }, [isRunning])
+  const { data, createData, dataSize, setDataSize, isRunning, animationsOn, setAnimationsOn } = useContext(DataContext)
 
   const handleChange = e => {
     setDataSize(+e.target.textContent)
     createData(+e.target.textContent)
   }
+
+  const setAnimations = () => animationsOn ? setAnimationsOn(false): setAnimationsOn(true)
 
   const DataSizeSlider = withStyles({
     root: {
@@ -64,17 +58,23 @@ const ControlWidget = ({ algo } ) => {
     },
 
   })(Slider)
+  // const tween = {
+  //   type: "tween",
+  //   damping: 500,
+  //   stiffness: 500,
+  //   duration: 0.1,
+  // }
 
   return (
-    <div style={{ marginTop: '35px' }}>
+    <div style={{ marginTop: '20px' }}>
       <Grid container spacing={2} alignItems='center' justify='center'>
         <Grid item>
-          <Button ><LoopSharpIcon fontSize='large' color="inherit" onClick={createData}>New Array</LoopSharpIcon></Button>
+          <Button color='#02203c' ><LoopSharpIcon fontSize='large' color='#02203c' onClick={createData}>New Array</LoopSharpIcon></Button>
         </Grid>
         {data.length > 0 &&
           <>
             <Grid item>
-              <Button disabled={isRunning}><PlayCircleOutlineSharpIcon size='small' fontSize='large' color="inherit" onClick={algo}>Sort!</PlayCircleOutlineSharpIcon></Button>
+              <Button color='#02203c' disabled={isRunning}><PlayCircleOutlineSharpIcon size='small' fontSize='large' color='inherit' onClick={algo}></PlayCircleOutlineSharpIcon></Button>
             </Grid>
             <Grid item>
               <div style={{ fontWeight: 'bold' }}>25</div>
@@ -84,6 +84,9 @@ const ControlWidget = ({ algo } ) => {
             </Grid>
             <Grid item>
               <div style={{ fontWeight: 'bold' }}>100</div>
+            </Grid>
+            <Grid item>
+              <Button color='#02203c' ><PlayCircleOutlineSharpIcon size='small' fontSize='large' color='inherit' onClick={setAnimations}></PlayCircleOutlineSharpIcon></Button>
             </Grid>
           </>
         }

@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 import DataContext from '../contexts/DataContext'
 import ControlWidget from './ControlWidget'
@@ -35,7 +36,7 @@ const QuickSorter = () => {
 
   const quickSortHelper = async () => {
     setIsRunning(true)
-    await sleep(20)
+    await sleep(5)
     const copy = data.slice()
     quick.access = 0
     quick.swaps = 0
@@ -54,15 +55,16 @@ const QuickSorter = () => {
   }
 
   const partition = async (array, start, end) => {
+    if (!refContainer.current) return
     let pivotValue = array[end]
     quick.access++
     setMetrics({ ...metrics, quick })
     let pivotIndex = start
     for (let i = start; i < end; i++) {
+      if (!refContainer.current) return
       quick.access++
       if (array[i] < pivotValue) {
         const swapped = await swap(i, pivotIndex, array)
-        if (!refContainer.current) return
         quick.swaps++
         setSortedData([...swapped])
         pivotIndex++
@@ -90,13 +92,13 @@ const QuickSorter = () => {
   }
 
   return (
-    <>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <ControlWidget algo={quickSortHelper} />
       <SortContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
       <AlgoInfo info={info} />
-    </>
+    </motion.div>
   )
 }
 

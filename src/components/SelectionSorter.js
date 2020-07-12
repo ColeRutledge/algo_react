@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 import DataContext from '../contexts/DataContext'
 import ControlWidget from './ControlWidget'
@@ -32,15 +33,18 @@ const SelectionSorter = () => {
 
   const selectionSort = async () => {
     setIsRunning(true)
+    await sleep(5)
     const copy = data.slice()
     selection.access = 0
     selection.swaps = 0
 
     for (let i = 0; i < copy.length; i++) {
+      if (!refContainer.current) return
       let smallest = i
       selection.access++
       setMetrics({ ...metrics, selection })
       for (let j = i + 1; j < copy.length; j++) {
+        if (!refContainer.current) return
         selection.access++
         if (copy[smallest] > copy[j]) {
           smallest = j
@@ -72,13 +76,13 @@ const SelectionSorter = () => {
   }
 
   return (
-    <>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <ControlWidget algo={selectionSort} />
       <SortContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
       <AlgoInfo info={info} />
-    </>
+    </motion.div>
   )
 }
 

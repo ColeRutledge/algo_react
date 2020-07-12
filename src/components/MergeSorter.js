@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 import DataContext from '../contexts/DataContext'
 import ControlWidget from './ControlWidget'
@@ -34,7 +35,7 @@ const MergeSorter = () => {
 
   const mergeHelper = async () => {
     setIsRunning(true)
-    await sleep(20)
+    await sleep(5)
     copy = data.slice()
     animations = data.slice()
     mergeStats.access = 0
@@ -45,7 +46,7 @@ const MergeSorter = () => {
   }
 
   const mergeSort = async (array) => {
-
+    if (!refContainer.current) return
     if (array.length <= 1) return array
 
     let midIdx = Math.floor(array.length / 2)
@@ -75,6 +76,7 @@ const MergeSorter = () => {
     while (array1.length || array2.length) {
       let ele1 = array1.length ? array1[0] : Infinity
       let ele2 = array2.length ? array2[0] : Infinity
+      if (!refContainer.current) return
 
       let next, firstBar, secondBar
       if (ele1 !== Infinity) {
@@ -111,6 +113,7 @@ const MergeSorter = () => {
     }
 
     for (let i = 0; i < merged.length; i++) {
+      if (!refContainer.current) return
       let originIdx = animations.indexOf(merged[i])
       let newIdx = start
       if (originIdx !== newIdx) {
@@ -121,8 +124,8 @@ const MergeSorter = () => {
       bars[start].style.backgroundColor = '#DC3545'
       animations[start++] = merged[i]
       await sleep(20)
-      bars[start - 1].style.backgroundColor = '#02203c'
       if (!refContainer.current) return
+      bars[start - 1].style.backgroundColor = '#02203c'
       setSortedData([...animations])
     }
 
@@ -132,13 +135,13 @@ const MergeSorter = () => {
   }
 
   return (
-    <>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <ControlWidget algo={mergeHelper} />
       <SortContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
       <AlgoInfo info={info} />
-    </>
+    </motion.div>
   )
 }
 

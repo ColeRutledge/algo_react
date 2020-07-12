@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 import DataContext from '../contexts/DataContext'
 import ControlWidget from './ControlWidget'
@@ -32,16 +33,19 @@ const InsertionSorter = () => {
 
   const insertionSort = async () => {
     setIsRunning(true)
+    await sleep(5)
     const copy = data.slice()
     insertion.access = 0
     insertion.swaps = 0
     const bars = document.getElementsByClassName('bar')
 
     for (let i = 1; i < copy.length; i++) {
+      if (!refContainer.current) return
       insertion.access++
       let key = copy[i]
       let j = i - 1
       while (j >= 0 && copy[j] > key) {
+        if (!refContainer.current) return
         insertion.access++
         insertion.swaps++
 
@@ -66,13 +70,13 @@ const InsertionSorter = () => {
   }
 
   return (
-    <>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <ControlWidget algo={insertionSort} />
       <SortContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
       <AlgoInfo info={info} />
-    </>
+    </motion.div>
   )
 }
 

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 import DataContext from '../contexts/DataContext'
 import ControlWidget from './ControlWidget'
@@ -16,9 +17,7 @@ const BubbleSorter = () => {
 
   const bubble = {...metrics.bubble}
 
-
   useEffect(() => setSortedData(data), [data])
-
   useEffect(() => {
     refContainer.current = isRunning
   }, [isRunning])
@@ -35,12 +34,15 @@ const BubbleSorter = () => {
 
   const bubbleSort = async () => {
     setIsRunning(true)
+    await sleep(5)
     const copy = data.slice()
     bubble.access = 0
     bubble.swaps = 0
 
     for (let i = 0; i < copy.length; i++) {
+      if (!refContainer.current) return
       for (let j = 0; j < copy.length - i; j++) {
+        if (!refContainer.current) return
         bubble.access++
         if (copy[j] > copy[j + 1]) {
           const swapped = await swap(j, j + 1, copy)
@@ -69,13 +71,13 @@ const BubbleSorter = () => {
   }
 
   return (
-    <>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <ControlWidget algo={bubbleSort} />
       <SortContainer>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
       <AlgoInfo info={info} />
-    </>
+    </motion.div>
   )
 }
 

@@ -16,6 +16,7 @@ const App = () => {
   const [ metrics, setMetrics ] = useState(metricDefault)
   const [ dataSize, setDataSize ] = useState(40)
   const [ isRunning, setIsRunning ] = useState(false)
+  const [ animationsOn, setAnimationsOn ] = useState(true)
 
   const createData = (value) => {
     setIsRunning(false)
@@ -36,6 +37,8 @@ const App = () => {
     setDataSize,
     isRunning,
     setIsRunning,
+    animationsOn,
+    setAnimationsOn,
   }
 
   return (

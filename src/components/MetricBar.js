@@ -21,8 +21,6 @@ const MetricBar = () => {
   )
 }
 
-
-
 const MetricWidget = ({ title, values: { access, swaps }}) => {
 
   const styles = {
