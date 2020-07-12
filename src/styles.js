@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 
 // Metric Bar Styles
 
@@ -104,7 +105,7 @@ export const SortContainer = styled.div`
 
 // Sort Node Styles
 
-export const Node = styled.div`
+export const Node = styled(motion.div)`
   background-color: #02203c;
   width: 100%;
   margin: 1px;

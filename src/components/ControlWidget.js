@@ -43,13 +43,13 @@ const ControlWidget = ({ algo } ) => {
       border: '2px solid currentColor',
       marginTop: -7,
       marginLeft: -12,
-      '&:focus, &:hover, &$active, &&disabled': {
+      '&:focus, &:hover, &$active': {
         boxShadow: 'inherit',
       },
     },
     active: {},
     disabled: {
-      // color: '#02203c',
+      color: '#02203c',
     },
     valueLabel: {
       left: 'calc(-50%)',

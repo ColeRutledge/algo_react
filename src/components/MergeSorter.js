@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import DataContext from '../contexts/DataContext'
 import ControlWidget from './ControlWidget'
@@ -10,16 +11,24 @@ const MergeSorter = () => {
   const { data, metrics, setMetrics, isRunning, setIsRunning } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
   const refContainer = useRef(isRunning)
+  const history = useHistory()
 
   let copy, animations
   const mergeStats = {...metrics.merge}
   const bars = document.getElementsByClassName('bar')
 
   useEffect(() => setSortedData(data), [data])
-
   useEffect(() => {
     refContainer.current = isRunning
   }, [isRunning])
+
+  useEffect(() => {
+    return history.listen(() => {
+      if (isRunning) setMetrics({ ...metrics, merge: { access: 0, swaps: 0 } })
+      refContainer.current = false
+      setIsRunning(false)
+    })
+  }, [history, setIsRunning, isRunning, metrics, setMetrics])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -31,6 +40,8 @@ const MergeSorter = () => {
     mergeStats.access = 0
     mergeStats.swaps = 0
     await mergeSort(copy)
+    refContainer.current = false
+    setIsRunning(false)
   }
 
   const mergeSort = async (array) => {
@@ -78,6 +89,7 @@ const MergeSorter = () => {
       setMetrics({ ...metrics, merge: mergeStats })
 
       if (ele1 < ele2) {
+        if (!refContainer.current) return
         firstBar.style.backgroundColor = '#DC3545'
         if (ele2 !== Infinity) secondBar.style.backgroundColor = '#DC3545'
         await sleep(5)
@@ -85,6 +97,7 @@ const MergeSorter = () => {
         firstBar.style.backgroundColor = '#02203c'
         if (ele2 !== Infinity) secondBar.style.backgroundColor = '#02203c'
       } else {
+        if (!refContainer.current) return
         if (ele1 !== Infinity) firstBar.style.backgroundColor = '#DC3545'
         secondBar.style.backgroundColor = '#DC3545'
         await sleep(5)
@@ -109,11 +122,11 @@ const MergeSorter = () => {
       animations[start++] = merged[i]
       await sleep(20)
       bars[start - 1].style.backgroundColor = '#02203c'
-      if (!refContainer.current) return 
+      if (!refContainer.current) return
       setSortedData([...animations])
     }
 
-    if (!refContainer.current) return []
+    // if (!refContainer.current) return []
     setMetrics({ ...metrics, merge: mergeStats })
     return merged
   }

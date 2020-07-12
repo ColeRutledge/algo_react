@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import DataContext from '../contexts/DataContext'
 import ControlWidget from './ControlWidget'
@@ -11,6 +12,7 @@ const BubbleSorter = () => {
   const { data, metrics, setMetrics, isRunning, setIsRunning } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
   const refContainer = useRef(isRunning)
+  const history = useHistory()
 
   const bubble = {...metrics.bubble}
 
@@ -20,6 +22,14 @@ const BubbleSorter = () => {
   useEffect(() => {
     refContainer.current = isRunning
   }, [isRunning])
+
+  useEffect(() => {
+    return history.listen(() => {
+      if (isRunning) setMetrics({ ...metrics, bubble: { access: 0, swaps: 0 } })
+      refContainer.current = false
+      setIsRunning(false)
+    })
+  }, [history, setIsRunning, isRunning, metrics, setMetrics])
 
   const sleep = async ms => await new Promise(resolve => setTimeout(resolve, ms))
 
@@ -41,6 +51,8 @@ const BubbleSorter = () => {
         }
       }
     }
+    refContainer.current = false
+    setIsRunning(false)
   }
 
   const swap = async (firstIndx, secondIndx, array) => {

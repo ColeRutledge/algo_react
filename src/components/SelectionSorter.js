@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import DataContext from '../contexts/DataContext'
 import ControlWidget from './ControlWidget'
@@ -10,14 +11,22 @@ const SelectionSorter = () => {
   const { data, metrics, setMetrics, isRunning, setIsRunning  } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
   const refContainer = useRef(isRunning)
+  const history = useHistory()
 
   const selection = {...metrics.selection}
 
   useEffect(() => setSortedData(data), [data])
-
   useEffect(() => {
     refContainer.current = isRunning
   }, [isRunning])
+
+  useEffect(() => {
+    return history.listen(() => {
+      if (isRunning) setMetrics({ ...metrics, selection: { access: 0, swaps: 0 } })
+      refContainer.current = false
+      setIsRunning(false)
+    })
+  }, [history, setIsRunning, isRunning, metrics, setMetrics])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -45,6 +54,8 @@ const SelectionSorter = () => {
         setSortedData([...swapped])
       }
     }
+    refContainer.current = false
+    setIsRunning(false)
   }
 
   const swap = async (firstIndx, secondIndx, array) => {

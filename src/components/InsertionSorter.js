@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import DataContext from '../contexts/DataContext'
 import ControlWidget from './ControlWidget'
@@ -10,6 +11,7 @@ const InsertionSorter = () => {
   const { data, metrics, setMetrics, isRunning, setIsRunning } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
   const refContainer = useRef(isRunning)
+  const history = useHistory()
 
   const insertion = {...metrics.insertion}
 
@@ -17,6 +19,14 @@ const InsertionSorter = () => {
   useEffect(() => {
     refContainer.current = isRunning
   }, [isRunning])
+
+  useEffect(() => {
+    return history.listen(() => {
+      if (isRunning) setMetrics({ ...metrics, insertion: { access: 0, swaps: 0 } })
+      refContainer.current = false
+      setIsRunning(false)
+    })
+  }, [history, setIsRunning, isRunning, metrics, setMetrics])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -51,6 +61,8 @@ const InsertionSorter = () => {
       copy[j + 1] = key
       setSortedData([...copy])
     }
+    refContainer.current = false
+    setIsRunning(false)
   }
 
   return (
