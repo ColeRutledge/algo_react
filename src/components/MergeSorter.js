@@ -151,5 +151,5 @@ const info = {
   timeBigO: '$\\mathcal{O}(n\\cdot\\log{}n)$',
   spaceBigO: '$\\mathcal O(n)$',
   time: 'Merge Sort is thought to be one of the best algorithms to be able to put down on paper in an interview because of how consistently performant it is. The length of the input array contributes \'$n$\'. Each recursive call to reach the base case of a length of one contributes $\\log{}n$ bringing it to a total loglinear time complexity of $\\mathcal{O}(n\\cdot\\log{}n)$.',
-  space: 'The space complexity is the only major consideration for using merge sort. Because we \'divide and conquer\' with merge sort, we create a new subarray for each \'$n$\' of the input array. When space is finite, merge sort may not be the best choice because of its $\\mathcal O(n)$ space complexity.',
+  space: 'The space complexity is the only major consideration for using Merge Sort. Because we \'divide and conquer\' with Merge Sort, we create a new subarray for each \'$n$\' of the input array. When space is finite, merge sort may not be the best choice because of its $\\mathcal O(n)$ space complexity.',
 }

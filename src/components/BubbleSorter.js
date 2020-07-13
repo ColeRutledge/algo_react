@@ -87,7 +87,6 @@ export default BubbleSorter
 const info = {
   timeBigO: '$\\mathcal O(n^2)$',
   spaceBigO: '$\\mathcal O(1)$',
-  time: 'Bubble Sort is on the lower end of the scale in terms of time complexity.  Both the outter and inner loops contribute $\\mathcal O(n)$ which puts it in the polynomial complexity class with a total time complexity of $\\mathcal{O}(n\\cdot\\ n) = \\mathcal O(n^2)$.',
+  time: 'Bubble Sort is on the lower end of the scale in terms of time complexity.  Both the outer and inner loops contribute $\\mathcal O(n)$ which puts it in the polynomial complexity class with a total time complexity of $\\mathcal{O}(n\\cdot\\ n) = \\mathcal O(n^2)$.',
   space: 'Bubble Sort\'s space complexity is as efficient as it can get at $\\mathcal O(1)$.  The amount of memory consumed does not increase relative to the size of the input array as we\'re \'swapping\' elements and mutating the original array.',
 }
-

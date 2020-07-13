@@ -92,8 +92,6 @@ export default SelectionSorter
 const info = {
   timeBigO: '$\\mathcal O(n^2)$',
   spaceBigO: '$\\mathcal O(1)$',
-  time: 'Selection Sort is thought to be only slighty more efficent than Bubble Sort but still a less efficent algorithm.  Both the outter and inner loops contribute $\\mathcal O(n)$ but the inner loop iterates one less time for each iteration of the outer loop with a total time complexity of $\\mathcal{O}(n\\cdot\\ n) = \\mathcal O(n^2)$.',
+  time: 'Selection Sort is thought to be only slighty more efficient than Bubble Sort but still a less efficient algorithm.  Both the outer and inner loops contribute $\\mathcal O(n)$ but the inner loop iterates one less time for each iteration of the outer loop with a total time complexity of $\\mathcal{O}(n\\cdot\\ n) = \\mathcal O(n^2)$.',
   space: 'Selection Sort\'s space complexity is as efficient as it can get at $\\mathcal O(1)$.  The amount of memory consumed does not increase relative to the size of the input array as we\'re \'swapping\' elements and mutating the original array.',
 }
-
-

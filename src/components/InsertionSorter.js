@@ -86,7 +86,6 @@ export default InsertionSorter
 const info = {
   timeBigO: '$\\mathcal O(n^2)$',
   spaceBigO: '$\\mathcal O(1)$',
-  time: 'Like with Bubble and Selection Sort, Insertion Sort is thought to be a less efficent algorithm.  Both the outter and inner loops contribute $\\mathcal O(n)$ but there is a slight optimization in that the inner loop will only iterate until it finds the appropriate place to insert. It has a total time complexity of $\\mathcal{O}(n\\cdot\\ n) = \\mathcal O(n^2)$.',
+  time: 'Similar to Bubble and Selection Sort, Insertion Sort is thought to be a less efficient algorithm.  Both the outer and inner loops contribute $\\mathcal O(n)$ but there is a slight optimization in that the inner loop will only iterate until it finds the appropriate place to insert. It has a total time complexity of $\\mathcal{O}(n\\cdot\\ n) = \\mathcal O(n^2)$.',
   space: 'Insertion Sort\'s space complexity is as efficient as it can get at $\\mathcal O(1)$.  The amount of memory consumed does not increase relative to the size of the input array as we\'re \'swapping\' elements and mutating the original array.',
 }
-

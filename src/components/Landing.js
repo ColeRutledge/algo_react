@@ -24,7 +24,7 @@ const Landing = () => {
 
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', top: '125px' }}>
+    <div style={{ color: '#02203c', display: 'flex', justifyContent: 'center', position: 'relative', top: '125px' }}>
       <motion.div
         style={styles}
         initial={{ opacity: 0 }}

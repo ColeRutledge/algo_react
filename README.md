@@ -1,8 +1,33 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# AlgoReact
+## a sorting algorithm visualizer
 
-In the project directory, you can run:
+- Thanks for checking out my project!  This was the solo project that I chose to do for our React project in the App Academy full stack bootcamp program.  It covers the five sorting algorithms that we chose to study and analyze during our course.  It is 97% JavaScript and reflects what we've been learning over the course of the last several weeks and beyond.  I had an absolute blast building it, so if you enjoy, please be kind enough to star it for support!
+
+### Technologies used:
+- JavaScript
+- React.js (extensive use of hooks: useState, useContext, useRef, useHistory, and useEffect)
+- Framer Motion API for page transitions and animations
+- Material UI for the control widget
+- LaTex for Big O Notation font face
+- Styled Components for styling of React components
+- HTML5 / CSS3
+
+### Challenges:
+- I found that visualizing the recursive algorithms was quite a bit more tricky than that of the 'loop-based' algorithms.  Merge Sort also required overwriting the 'animation' array rather than using swaps in the others.
+- Figuring out a way to break out of the animation on a route change or reset took some problem solving as well with some creative (if not inefficient) use of useRef, useContext, and useHistory hooks.
+- This was my deepest dive yet into the world of animation and styling, and while I enjoyed it, it felt like the most time consuming part of the whole process.
+
+### Future To-do's:
+- Is a project ever really done?
+- My next feature to build was a way to make the animation speed variable which would not have required too much, but in a one week project, I just ran out of time.
+- Make use of the useReducer hook to start tackle the building complexity of my global state/context
+- Include additional algorithms (e.g. Heap Sort)
+- More robust landing page and summary page with some data visualizations and comparisons of the performance of the algorithms
+- Connect it to an API server and database to accumulate data over the course of time to create some interesting analysis over time.
+- Performance improvements to the visualizations
+
 
 ### `npm start`
 
@@ -11,58 +36,3 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
