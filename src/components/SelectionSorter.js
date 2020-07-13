@@ -76,9 +76,9 @@ const SelectionSorter = () => {
   }
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <ControlWidget algo={selectionSort} />
-      <SortContainer>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}><ControlWidget algo={selectionSort} /></motion.div>
+      <SortContainer initial={{ x: '40vw' }} animate={{ x: 0 }} transition={{ duration: 1, type: 'spring', stiffness: 40, }}>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
       <AlgoInfo info={info} />
@@ -90,7 +90,8 @@ export default SelectionSorter
 
 
 const info = {
-  uses: 'Selection Sort becomes advantageous when making a swap is the most expensive operation in your system. You will likely rarely encounter this scenario, but in a situation where you\'ve built (or have inherited) a system with suboptimal write speed ability, for instance, maybe you\'re sorting data in a specialized database tuned strictly for fast read speeds at the expense of slow write speeds, using Selection Sort would save you a ton of expensive operations that could potential crash your system under peak load.',
+  timeBigO: '$\\mathcal O(n^2)$',
+  spaceBigO: '$\\mathcal O(1)$',
   time: 'n is the length of the input array. The outer loop i contributes O(n) in isolation, this is plain to see. The inner loop j is more complicated, it will make one less iteration for every iteration of i. The two loops are nested so our total time complexity is O(n * n / 2) = O(n2).',
   space: 'The amount of memory consumed by the algorithm does not increase relative to the size of the input array. We use the same amount of memory and create the same amount of variables regardless of the size of our input. A quick indicator of this is the fact that we don\'t create any arrays.',
 }

@@ -129,15 +129,14 @@ const MergeSorter = () => {
       setSortedData([...animations])
     }
 
-    // if (!refContainer.current) return []
     setMetrics({ ...metrics, merge: mergeStats })
     return merged
   }
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <ControlWidget algo={mergeHelper} />
-      <SortContainer>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}><ControlWidget algo={mergeHelper} /></motion.div>
+      <SortContainer initial={{ x: '40vw' }} animate={{ x: 0 }} transition={{ duration: .25, type: 'spring', stiffness: 40, }}>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
       <AlgoInfo info={info} />
@@ -149,7 +148,8 @@ export default MergeSorter
 
 
 const info = {
-  uses: 'Unless we, the engineers, have access in advance to some unique, exploitable insight about our dataset, it turns out that O(n log n) time is the best we can do when sorting unknown datasets. If you have unlimited memory available, use it, it\'s fast! If you have a decent amount of memory available and a medium sized dataset, run some tests first, but use it!',
+  timeBigO: '$\\mathcal{O}(n\\cdot\\log{}n)$',
+  spaceBigO: '$\\mathcal O(n)$',
   time: 'n is the length of the input array. We must calculate how many recursive calls we make. The number of recursive calls is the number of times we must split the array to reach the base case. Since we split in half each time, the number of recursive calls is O(log(n)). Besides the recursive calls, we must consider the while loop within the merge function, which contributes O(n) in isolation. We call merge in every recursive mergeSort call, so the total complexity is O(n * log(n)).',
   space: 'Merge Sort is the first non-O(1) space sorting algorithm we\'ve seen thus far. The larger the size of our input array, the greater the number of subarrays we must create in memory. These are not free! They each take up finite space, and we will need a new subarray for each element in the original input. Therefore, Merge Sort has a linear space complexity, O(n).',
 }

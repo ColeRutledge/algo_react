@@ -71,9 +71,9 @@ const BubbleSorter = () => {
   }
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <ControlWidget algo={bubbleSort} />
-      <SortContainer>
+    <motion.div initial={{ opacity: .25 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}><ControlWidget algo={bubbleSort} /></motion.div>
+      <SortContainer initial={{ x: '40vw' }} animate={{ x: 0 }} transition={{ duration: .25, type: 'spring', stiffness: 40, }}>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
       <AlgoInfo info={info} />
@@ -85,7 +85,8 @@ export default BubbleSorter
 
 
 const info = {
-  uses: 'When sorting really small arrays where run time will be negligible no matter what algorithm you choose. When sorting arrays that you expect to already be nearly sorted. At parties!',
+  timeBigO: '$\\mathcal O(n^2)$',
+  spaceBigO: '$\\mathcal O(1)$',
   time: 'n is the length of the input array. The inner for loop along contributes O(n) in isolation. The outer while loop contributes O(n) in isolation because a single iteration of the while loop will bring one element to its final resting position. In other words, it keeps running the while loop until the array is fully sorted. To fully sort the array we will need to bring all n elements into their final resting positions. Those two loops are nested so the total time complexity is O(n * n) = O(n2).',
   space: 'Bubble Sort is a constant space, O(1), algorithm. The amount of memory consumed by the algorithm does not increase relative to the size of the input array. It uses the same amount of memory and create the same amount of variables regardless of the size of the input, making this algorithm quite space efficient. The space efficiency mostly comes from the fact that it mutates the input array in-place. This is known as a destructive sort because it "destroys" the positions of the values in the array.',
 }

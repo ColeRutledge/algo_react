@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import DataContext from './contexts/DataContext'
 import Routes from './components/Routes'
@@ -26,7 +26,6 @@ const App = () => {
     setMetrics({...metricDefault})
   }
 
-
   const context = {
     data,
     setData,
@@ -40,6 +39,8 @@ const App = () => {
     animationsOn,
     setAnimationsOn,
   }
+
+  useEffect(createData, [])
 
   return (
     <DataContext.Provider value={context}>

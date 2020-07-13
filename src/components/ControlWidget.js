@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button'
 import { Grid, Slider } from '@material-ui/core';
 import PlayCircleOutlineSharpIcon from '@material-ui/icons/PlayCircleOutlineSharp';
 import LoopSharpIcon from '@material-ui/icons/LoopSharp';
+import MovieIcon from '@material-ui/icons/Movie';
+import MovieFilterIcon from '@material-ui/icons/MovieFilter';
 
 import DataContext from '../contexts/DataContext'
 
@@ -25,8 +27,6 @@ const ControlWidget = ({ algo } ) => {
       width: 150,
       "&$disabled": {
         // color: "#02203c",
-        // marginBottom: -2,
-        // marginLeft: -12,
       },
 
     },
@@ -69,12 +69,12 @@ const ControlWidget = ({ algo } ) => {
     <div style={{ marginTop: '20px' }}>
       <Grid container spacing={2} alignItems='center' justify='center'>
         <Grid item>
-          <Button color='#02203c' ><LoopSharpIcon fontSize='large' color='#02203c' onClick={createData}>New Array</LoopSharpIcon></Button>
+          <Button><LoopSharpIcon fontSize='large' color='inherit' onClick={createData}>New Array</LoopSharpIcon></Button>
         </Grid>
         {data.length > 0 &&
           <>
             <Grid item>
-              <Button color='#02203c' disabled={isRunning}><PlayCircleOutlineSharpIcon size='small' fontSize='large' color='inherit' onClick={algo}></PlayCircleOutlineSharpIcon></Button>
+              <Button disabled={isRunning}><PlayCircleOutlineSharpIcon size='small' fontSize='large' color='inherit' onClick={algo}></PlayCircleOutlineSharpIcon></Button>
             </Grid>
             <Grid item>
               <div style={{ fontWeight: 'bold' }}>25</div>
@@ -86,7 +86,11 @@ const ControlWidget = ({ algo } ) => {
               <div style={{ fontWeight: 'bold' }}>100</div>
             </Grid>
             <Grid item>
-              <Button color='#02203c' ><PlayCircleOutlineSharpIcon size='small' fontSize='large' color='inherit' onClick={setAnimations}></PlayCircleOutlineSharpIcon></Button>
+              {animationsOn
+              ? <Button><MovieFilterIcon size='small' fontSize='large' color='inherit' onClick={setAnimations}></MovieFilterIcon></Button>
+              : <Button><MovieIcon size='small' fontSize='large' color='inherit' onClick={setAnimations}></MovieIcon></Button>
+            }
+
             </Grid>
           </>
         }

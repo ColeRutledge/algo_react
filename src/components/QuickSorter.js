@@ -92,9 +92,9 @@ const QuickSorter = () => {
   }
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <ControlWidget algo={quickSortHelper} />
-      <SortContainer>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}><ControlWidget algo={quickSortHelper} /></motion.div>
+      <SortContainer initial={{ x: '40vw' }} animate={{ x: 0 }} transition={{ duration: .25, type: 'spring', stiffness: 40, }}>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
       <AlgoInfo info={info} />
@@ -106,8 +106,9 @@ export default QuickSorter
 
 
 const info = {
-  uses: 'When you are in a pinch and need to throw down an efficient sort (on average). The recursive code is light and simple to implement; much smaller than mergeSort. When constant space is important to you, use the in-place version. This will of course trade off some simplicity of implementation.',
-  time: 'Avg Case: O(n log(n)). Worst Case: O(n2). n is the length of the input array. The partition step alone is O(n). The partition step occurs in every recursive call, so our total complexities are: Best Case: O(n * log(n)) Worst Case: O(n2)',
+  timeBigO: '$Avg: \\mathcal{O}(n\\cdot\\log{}n) \\hspace{1cm} Worst: \\mathcal O(n^2)$',
+  spaceBigO: '$\\mathcal O(\\log{}n)$',
+  time: 'n is the length of the input array. The partition step alone is O(n). The partition step occurs in every recursive call, so our total complexities are: Best Case: O(n * log(n)) Worst Case: O(n2)',
   space: 'Our implementation of quickSort uses O(n) space because of the partition arrays we create. There is an in-place version of quickSort that uses O(log(n)) space. O(log(n)) space is not huge benefit over O(n). You\'ll also find our version of quickSort as easier to remember, easier to implement. Just know that a O(logn) space quickSort exists.',
 }
 

@@ -24,3 +24,7 @@ a:hover {
 .navbar--active {
   border-bottom: 2px solid #f6f9fc;
 }
+
+.katex {
+  font-size: 24px;
+}

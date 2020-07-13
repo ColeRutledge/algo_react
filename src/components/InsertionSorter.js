@@ -70,9 +70,9 @@ const InsertionSorter = () => {
   }
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-      <ControlWidget algo={insertionSort} />
-      <SortContainer>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}><ControlWidget algo={insertionSort} /></motion.div>
+      <SortContainer initial={{ x: '40vw' }} animate={{ x: 0 }} transition={{ duration: .25, type: 'spring', stiffness: 40, }}>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
       <AlgoInfo info={info} />
@@ -84,7 +84,8 @@ export default InsertionSorter
 
 
 const info = {
-  uses: 'Insertion Sort has one advantage that makes it absolutely supreme in one special case. Insertion Sort is what\'s known as an "online" algorithm. Online algorithms are great when you\'re dealing with streaming data, because they can sort the data live as it is received.',
+  timeBigO: '$\\mathcal O(n^2)$',
+  spaceBigO: '$\\mathcal O(1)$',
   time: 'n is the length of the input array. The outer loop i contributes O(n) in isolation, this is plain to see. The inner loop j is more complicated. We know j will iterate until it finds an appropriate place to insert the currElement into the sorted region. The two loops are nested so our total time complexity is O(n * n / 2) = O(n2).',
   space: 'The amount of memory consumed by the algorithm does not increase relative to the size of the input array. We use the same amount of memory and create the same amount of variables regardless of the size of our input. A quick indicator of this is the fact that we don\'t create any arrays.',
 }

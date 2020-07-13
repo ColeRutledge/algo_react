@@ -68,13 +68,16 @@ export const NavButtonCont = styled.div`
 
 export const AlgoInfoCont = styled.div`
   display: grid;
-  grid-template-columns: 2fr .5fr 2fr .5fr 2fr;
+  grid-template-columns: 1fr 2fr 1fr 2fr .25fr;
   justify-items: center;
   font-size: 16px;
-  margin: 50px 100px;
+  margin: 15px 100px 125px 100px;
   padding: 10px;
+  background-color: #8A91991A;
+  border: 1px solid lightgrey;
+  box-shadow: 0 0 10px 0 rgba(21,27,38,.15);
 `
-
+// grid-template-columns: 2fr .5fr 2fr .5fr 2fr;
 // Footer Styles
 
 export const FooterContainer = styled.div`
@@ -90,11 +93,11 @@ export const FooterContainer = styled.div`
   justify-content: center;
   align-items: center;
 `
-
+// #f6f9fc
 // Sort Container Styles
 
-export const SortContainer = styled.div`
-  margin: 50px 100px;
+export const SortContainer = styled(motion.div)`
+  margin: 30px 100px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;

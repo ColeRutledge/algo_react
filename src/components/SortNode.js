@@ -15,9 +15,9 @@ const SortNode = ({ value }) => {
 
   return (
     <>
-      {animationsOn ?
-        <Node className='bar' style={{ height: `${(value + 1) * (600 / dataSize)}px` }}></Node> :
-        <Node layoutTransition={tween} className='bar' style={{ height: `${(value + 1) * (600 / dataSize)}px` }}></Node>
+      {animationsOn
+      ? <Node layoutTransition={tween} className='bar' style={{ height: `${(value + 1) * (600 / dataSize)}px` }}></Node>
+      : <Node className='bar' style={{ height: `${(value + 1) * (600 / dataSize)}px` }}></Node>
       }
     </>
   )
