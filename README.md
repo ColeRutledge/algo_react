@@ -20,7 +20,7 @@
 ### Future To-do's:
 - Is a project ever really done?
 - My next feature to build was a way to make the animation speed variable which would not have required too much, but in a one week project, I just ran out of time.
-- Make use of the useReducer hook to start tackle the building complexity of my global state/context
+- Make use of the useReducer hook or Redux to manage the growing complexity of my global state/context and improve performance
 - Include additional algorithms (e.g. Heap Sort)
 - More robust landing page and summary page with some data visualizations and comparisons of the performance of the algorithms
 - Connect it to an API server and database to accumulate data over the course of time to create some interesting analysis over time.
