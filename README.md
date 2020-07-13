@@ -13,7 +13,7 @@
 - HTML5 / CSS3
 
 ### Challenges:
-- I found that visualizing the recursive algorithms was quite a bit more tricky than that of the 'loop-based' algorithms.  Merge Sort also required overwriting the 'animation' array rather than using swaps in the others.
+- I found that visualizing the recursive algorithms was quite a bit tricker than that of the 'loop-based' algorithms.  Merge Sort also required overwriting the 'animation' array rather than using swaps in the others.
 - Figuring out a way to break out of the animation on a route change or reset took some problem solving as well with some creative (if not inefficient) use of useRef, useContext, and useHistory hooks.
 - This was my deepest dive yet into the world of animation and styling, and while I enjoyed it, it felt like the most time consuming part of the whole process.
 
