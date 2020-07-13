@@ -1,5 +1,3 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 # AlgoReact
 ## a sorting algorithm visualizer
 
@@ -28,6 +26,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Connect it to an API server and database to accumulate data over the course of time to create some interesting analysis over time.
 - Performance improvements to the visualizations
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ### `npm start`
 
