@@ -1,32 +1,51 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 import DataContext from '../contexts/DataContext'
-import MetricBar from './MetricBar'
+import ControlWidget from './ControlWidget'
 import AlgoInfo from './AlgoInfo'
 import SortNode from './SortNode'
 import { SortContainer } from '../styles'
 
 const InsertionSorter = () => {
-  const { data, createData, metrics, setMetrics } = useContext(DataContext)
+  const { data, metrics, setMetrics, isRunning, setIsRunning } = useContext(DataContext)
   const [ sortedData, setSortedData ] = useState([])
+  const refContainer = useRef(isRunning)
+  const history = useHistory()
 
   const insertion = {...metrics.insertion}
 
   useEffect(() => setSortedData(data), [data])
+  useEffect(() => {
+    refContainer.current = isRunning
+  }, [isRunning])
+
+  useEffect(() => {
+    return history.listen(() => {
+      if (isRunning) setMetrics({ ...metrics, insertion: { access: 0, swaps: 0 } })
+      refContainer.current = false
+      setIsRunning(false)
+    })
+  }, [history, setIsRunning, isRunning, metrics, setMetrics])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   const insertionSort = async () => {
+    setIsRunning(true)
+    await sleep(5)
     const copy = data.slice()
     insertion.access = 0
     insertion.swaps = 0
     const bars = document.getElementsByClassName('bar')
 
     for (let i = 1; i < copy.length; i++) {
+      if (!refContainer.current) return
       insertion.access++
       let key = copy[i]
       let j = i - 1
       while (j >= 0 && copy[j] > key) {
+        if (!refContainer.current) return
         insertion.access++
         insertion.swaps++
 
@@ -38,6 +57,7 @@ const InsertionSorter = () => {
         bars[j].style.backgroundColor = '#02203c'
         j = j - 1
 
+        if (!refContainer.current) return
         setMetrics({ ...metrics, insertion })
         setSortedData([...copy])
       }
@@ -45,27 +65,27 @@ const InsertionSorter = () => {
       copy[j + 1] = key
       setSortedData([...copy])
     }
-  }
-
-  const info = {
-    uses: 'Insertion Sort has one advantage that makes it absolutely supreme in one special case. Insertion Sort is what\'s known as an "online" algorithm. Online algorithms are great when you\'re dealing with streaming data, because they can sort the data live as it is received.',
-    time: 'n is the length of the input array. The outer loop i contributes O(n) in isolation, this is plain to see. The inner loop j is more complicated. We know j will iterate until it finds an appropriate place to insert the currElement into the sorted region. The two loops are nested so our total time complexity is O(n * n / 2) = O(n2).',
-    space: 'The amount of memory consumed by the algorithm does not increase relative to the size of the input array. We use the same amount of memory and create the same amount of variables regardless of the size of our input. A quick indicator of this is the fact that we don\'t create any arrays.',
+    refContainer.current = false
+    setIsRunning(false)
   }
 
   return (
-    <>
-      <MetricBar />
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {sortedData.length > 0 && <button className='btn btn-danger' onClick={insertionSort}>Sort!</button>}
-        <button className='btn btn-danger' onClick={createData}>New Array</button>
-      </div>
-      <SortContainer>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}><ControlWidget algo={insertionSort} /></motion.div>
+      <SortContainer initial={{ x: '40vw' }} animate={{ x: 0 }} transition={{ duration: .25, type: 'spring', stiffness: 40, }}>
         {sortedData.map((value, index) => <SortNode key={index} value={value} />)}
       </SortContainer>
       <AlgoInfo info={info} />
-    </>
+    </motion.div>
   )
 }
 
 export default InsertionSorter
+
+
+const info = {
+  timeBigO: '$\\mathcal O(n^2)$',
+  spaceBigO: '$\\mathcal O(1)$',
+  time: 'Similar to Bubble and Selection Sort, Insertion Sort is thought to be a less efficient algorithm.  Both the outer and inner loops contribute $\\mathcal O(n)$ but there is a slight optimization in that the inner loop will only iterate until it finds the appropriate place to insert. It has a total time complexity of $\\mathcal{O}(n\\cdot\\ n) = \\mathcal O(n^2)$.',
+  space: 'Insertion Sort\'s space complexity is as efficient as it can get at $\\mathcal O(1)$.  The amount of memory consumed does not increase relative to the size of the input array as we\'re \'swapping\' elements and mutating the original array.',
+}

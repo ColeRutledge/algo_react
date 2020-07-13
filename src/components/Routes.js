@@ -9,11 +9,13 @@ import InsertionSorter from './InsertionSorter'
 import QuickSorter from './QuickSorter'
 import MergeSorter from './MergeSorter'
 import Footer from './Footer'
+import MetricBar from './MetricBar'
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <Nav />
+      <MetricBar />
       <Switch>
         <Route exact path='/' render={() => <Landing />} />
         <Route path='/bubble' render={() => <BubbleSorter />} />
@@ -23,6 +25,7 @@ const Routes = () => {
         <Route path='/merge' render={() => <MergeSorter />} />
       </Switch>
       <Footer />
+      <div className='spacer' />
     </BrowserRouter>
   )
 }

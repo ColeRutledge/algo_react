@@ -6,8 +6,8 @@ const Nav = () => {
 
   const styles = {
     margin: '20px',
-    fontWeight: 'bold',
-    fontSize: '19px',
+    // fontWeight: '400',
+    fontSize: '18px',
     paddingBottom: '4px',
     paddingRight: '0',
     paddingLeft: '0',

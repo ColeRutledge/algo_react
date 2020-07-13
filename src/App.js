@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import DataContext from './contexts/DataContext'
 import Routes from './components/Routes'
@@ -14,9 +14,13 @@ const metricDefault = {
 const App = () => {
   const [ data, setData ] = useState([])
   const [ metrics, setMetrics ] = useState(metricDefault)
+  const [ dataSize, setDataSize ] = useState(40)
+  const [ isRunning, setIsRunning ] = useState(false)
+  const [ animationsOn, setAnimationsOn ] = useState(true)
 
-  const createData = () => {
-    let data = [...Array(50).keys()]
+  const createData = (value) => {
+    setIsRunning(false)
+    let data = value > 0 ? [...Array(value).keys()] : [...Array(dataSize).keys()]
     data = data.sort(() => Math.random() - 0.5)
     setData([...data])
     setMetrics({...metricDefault})
@@ -28,7 +32,15 @@ const App = () => {
     metrics,
     setMetrics,
     createData,
+    dataSize,
+    setDataSize,
+    isRunning,
+    setIsRunning,
+    animationsOn,
+    setAnimationsOn,
   }
+
+  useEffect(createData, [])
 
   return (
     <DataContext.Provider value={context}>
