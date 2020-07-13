@@ -14,25 +14,22 @@ export const MetricBarContainer = styled.div`
   align-items: center;
   justify-content: center;
   height: 90px;
-  border-bottom: 1px solid lightgrey;
-  box-shadow: 0 0 3px 0 rgba(21,27,38,.15);
-  background-color: #8A91991A;
+  border-bottom: 2px solid lightgrey;
+  box-shadow: 0 0 10px 0 rgba(21,27,38,.15);
+  background-color: #02203c;
 `
 
 
 export const WidgetContainer = styled.div`
   display: flex;
   flex-direction: column;
-  font-weight: bold;
-  color: #02203c;
+  color: #f6f9fc;
   justify-content: center;
   width: 200px;
   height: 75px;
-  padding: 0 10px 0 0;
-  border-left: 1px solid lightgrey;
-  border-right: 1px solid lightgrey;
-`
+  margin-bottom: 10px;
 
+`
 // Control Widget Styles
 
 export const ControlSlider = styled.form`
@@ -46,6 +43,9 @@ export const NavTitle = styled.h1`
   font-size: 36px;
   color: #f6f9fc;
   font-weight: 700;
+  position: relative;
+  top: 30px;
+  left: 150px;
 `
 export const NavContainer = styled.div`
   display: grid;
@@ -54,14 +54,13 @@ export const NavContainer = styled.div`
   justify-items: center;
   background-color: #02203c;
   height: 120px;
-  border-bottom: 2px solid lightgrey;
-  box-shadow: 0 0 3px 0 rgba(21,27,38,.15);
+
 `
 
 export const NavButtonCont = styled.div`
   display: flex;
   justify-content: space-around;
-  color: #BAE67E;
+  color: #f6f9fc;
 `
 
 // Algo Info Styles
@@ -70,14 +69,12 @@ export const AlgoInfoCont = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 2fr .25fr;
   justify-items: center;
-  font-size: 16px;
-  margin: 15px 100px 125px 100px;
-  padding: 10px;
+  margin: 15px 100px 0 100px;
   background-color: #8A91991A;
+  padding: 20px;
   border: 1px solid lightgrey;
   box-shadow: 0 0 10px 0 rgba(21,27,38,.15);
 `
-// grid-template-columns: 2fr .5fr 2fr .5fr 2fr;
 // Footer Styles
 
 export const FooterContainer = styled.div`
@@ -93,7 +90,6 @@ export const FooterContainer = styled.div`
   justify-content: center;
   align-items: center;
 `
-// #f6f9fc
 // Sort Container Styles
 
 export const SortContainer = styled(motion.div)`

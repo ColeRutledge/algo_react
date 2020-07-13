@@ -150,6 +150,6 @@ export default MergeSorter
 const info = {
   timeBigO: '$\\mathcal{O}(n\\cdot\\log{}n)$',
   spaceBigO: '$\\mathcal O(n)$',
-  time: 'n is the length of the input array. We must calculate how many recursive calls we make. The number of recursive calls is the number of times we must split the array to reach the base case. Since we split in half each time, the number of recursive calls is O(log(n)). Besides the recursive calls, we must consider the while loop within the merge function, which contributes O(n) in isolation. We call merge in every recursive mergeSort call, so the total complexity is O(n * log(n)).',
-  space: 'Merge Sort is the first non-O(1) space sorting algorithm we\'ve seen thus far. The larger the size of our input array, the greater the number of subarrays we must create in memory. These are not free! They each take up finite space, and we will need a new subarray for each element in the original input. Therefore, Merge Sort has a linear space complexity, O(n).',
+  time: 'Merge Sort is thought to be one of the best algorithms to be able to put down on paper in an interview because of how consistently performant it is. The length of the input array contributes \'$n$\'. Each recursive call to reach the base case of a length of one contributes $\\log{}n$ bringing it to a total loglinear time complexity of $\\mathcal{O}(n\\cdot\\log{}n)$.',
+  space: 'The space complexity is the only major consideration for using merge sort. Because we \'divide and conquer\' with merge sort, we create a new subarray for each \'$n$\' of the input array. When space is finite, merge sort may not be the best choice because of its $\\mathcal O(n)$ space complexity.',
 }

@@ -25,6 +25,7 @@ const Routes = () => {
         <Route path='/merge' render={() => <MergeSorter />} />
       </Switch>
       <Footer />
+      <div className='spacer' />
     </BrowserRouter>
   )
 }

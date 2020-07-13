@@ -87,6 +87,7 @@ export default BubbleSorter
 const info = {
   timeBigO: '$\\mathcal O(n^2)$',
   spaceBigO: '$\\mathcal O(1)$',
-  time: 'n is the length of the input array. The inner for loop along contributes O(n) in isolation. The outer while loop contributes O(n) in isolation because a single iteration of the while loop will bring one element to its final resting position. In other words, it keeps running the while loop until the array is fully sorted. To fully sort the array we will need to bring all n elements into their final resting positions. Those two loops are nested so the total time complexity is O(n * n) = O(n2).',
-  space: 'Bubble Sort is a constant space, O(1), algorithm. The amount of memory consumed by the algorithm does not increase relative to the size of the input array. It uses the same amount of memory and create the same amount of variables regardless of the size of the input, making this algorithm quite space efficient. The space efficiency mostly comes from the fact that it mutates the input array in-place. This is known as a destructive sort because it "destroys" the positions of the values in the array.',
+  time: 'Bubble Sort is on the lower end of the scale in terms of time complexity.  Both the outter and inner loops contribute $\\mathcal O(n)$ which puts it in the polynomial complexity class with a total time complexity of $\\mathcal{O}(n\\cdot\\ n) = \\mathcal O(n^2)$.',
+  space: 'Bubble Sort\'s space complexity is as efficient as it can get at $\\mathcal O(1)$.  The amount of memory consumed does not increase relative to the size of the input array as we\'re \'swapping\' elements and mutating the original array.',
 }
+

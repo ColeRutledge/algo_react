@@ -92,6 +92,8 @@ export default SelectionSorter
 const info = {
   timeBigO: '$\\mathcal O(n^2)$',
   spaceBigO: '$\\mathcal O(1)$',
-  time: 'n is the length of the input array. The outer loop i contributes O(n) in isolation, this is plain to see. The inner loop j is more complicated, it will make one less iteration for every iteration of i. The two loops are nested so our total time complexity is O(n * n / 2) = O(n2).',
-  space: 'The amount of memory consumed by the algorithm does not increase relative to the size of the input array. We use the same amount of memory and create the same amount of variables regardless of the size of our input. A quick indicator of this is the fact that we don\'t create any arrays.',
+  time: 'Selection Sort is thought to be only slighty more efficent than Bubble Sort but still a less efficent algorithm.  Both the outter and inner loops contribute $\\mathcal O(n)$ but the inner loop iterates one less time for each iteration of the outer loop with a total time complexity of $\\mathcal{O}(n\\cdot\\ n) = \\mathcal O(n^2)$.',
+  space: 'Selection Sort\'s space complexity is as efficient as it can get at $\\mathcal O(1)$.  The amount of memory consumed does not increase relative to the size of the input array as we\'re \'swapping\' elements and mutating the original array.',
 }
+
+

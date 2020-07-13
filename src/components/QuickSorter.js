@@ -108,33 +108,6 @@ export default QuickSorter
 const info = {
   timeBigO: '$Avg: \\mathcal{O}(n\\cdot\\log{}n) \\hspace{1cm} Worst: \\mathcal O(n^2)$',
   spaceBigO: '$\\mathcal O(\\log{}n)$',
-  time: 'n is the length of the input array. The partition step alone is O(n). The partition step occurs in every recursive call, so our total complexities are: Best Case: O(n * log(n)) Worst Case: O(n2)',
-  space: 'Our implementation of quickSort uses O(n) space because of the partition arrays we create. There is an in-place version of quickSort that uses O(log(n)) space. O(log(n)) space is not huge benefit over O(n). You\'ll also find our version of quickSort as easier to remember, easier to implement. Just know that a O(logn) space quickSort exists.',
+  time: 'Although we typically take the worst case into account when evaluating the time complexity of an algorithm, the worst case for quick sort (bad RNG on pivots) is so rare that it is common to consider it a loglinear algorithm. If we get lucky and choose the median as the pivot point on each recursive call, we would reach $\\mathcal{O}(n\\cdot\\log{}n)$. If we choose the min or max as pivots each time, we would hit the worst case polynomial complexity of $\\mathcal O(n^2)$.',
+  space: 'This implementation of Quick Sort uses an in place sort which causes the space complexity to be $\\mathcal O(1)$ because we\'re sorting the values in place and mutating the original array. There is another version that creates additional partition arrays based on \'$n$\' inputs which would make it $\\mathcal O(n)$',
 }
-
-
-  // const quickSort = async (array) => {
-
-  //   // setSortedData([sortedData, ...array])
-  //   if (array.length <= 1) return array
-
-  //   let pivot = array.shift()
-  //   bars[sortedData.indexOf(pivot)].style.backgroundColor = '#DC3545'
-
-  //   let left = array.filter(el => el < pivot)
-  //   let right = array.filter(el => el >= pivot)
-
-  //   await sleep(100)
-
-  //   let leftSorted = await quickSort(left)
-  //   let rightSorted = await quickSort(right)
-
-  //   bars[sortedData.indexOf(pivot)].style.backgroundColor = '#02203c'
-
-  //   // let [leftSorted, rightSorted ] = await Promise.all([quickSort(left), quickSort(right)])
-
-  //   // setSortedData([...array])
-  //   setSortedData([ ...leftSorted, pivot, ...rightSorted ])
-  //   return [ ...leftSorted, pivot, ...rightSorted ]
-
-  // }

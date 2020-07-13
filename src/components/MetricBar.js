@@ -35,7 +35,7 @@ const MetricWidget = ({ title, values: { access, swaps }}) => {
   return (
     <>
     <WidgetContainer>
-      <div style={{ textAlign: 'center', paddingBottom: '3px', color: '#DC3545' }}>{title}</div>
+      <div style={{ textAlign: 'center', paddingBottom: '3px', color: '#BAE67E', fontWeight: '500' }}>{title}</div>
       <div style={styles}>
         <div>Array Accesses: </div>
         <div>{access}</div>
