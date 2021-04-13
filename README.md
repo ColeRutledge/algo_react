@@ -27,4 +27,9 @@
 
 ---
 
+<p style="margin-top: 5%" align='center'> Click 
+    <a href='https://algo.colerutledge.dev/' target='_blank'>HERE</a> to see the live demo.
+</p>
+</br>
+
 ![screenshot](https://colerutledge.dev/static/img/algo_react.png)
