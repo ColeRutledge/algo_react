@@ -18,7 +18,6 @@
 - This was my deepest dive yet into the world of animation and styling, and while I enjoyed it, it felt like the most time consuming part of the whole process.
 
 ### Future To-do's:
-- Is a project ever really done?
 - My next feature to build was a way to make the animation speed variable which would not have required too much, but in a one week project, I just ran out of time.
 - Make use of the useReducer hook or Redux to manage the growing complexity of my global state/context and improve performance
 - Include additional algorithms (e.g. Heap Sort)
@@ -26,12 +25,6 @@
 - Connect it to an API server and database to accumulate data over the course of time to create some interesting analysis over time.
 - Performance improvements to the visualizations
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+![screenshot](https://colerutledge.dev/static/img/algo_react.png)
